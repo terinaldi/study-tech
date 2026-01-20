@@ -6,7 +6,7 @@
   <title>Study Tech</title>
   <link rel="manifest" href="manifest.json"/>
   <meta name="theme-color" content="#8B0000"/>
-  <!-- Stronger iOS support for icon and standalone mode -->
+  <!-- iOS icon & standalone support -->
   <link rel="apple-touch-icon" href="icon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="icon.png">
   <link rel="apple-touch-icon" sizes="512x512" href="icon.png">
@@ -89,7 +89,7 @@
     #search-btn:hover { background: #A52A2A; }
     #result { margin-top: 1.8rem; font-size: 1.1rem; }
     .pos { font-weight: bold; color: #8B0000; text-transform: capitalize; margin-top: 1.2rem; }
-    p { margin: 1rem 0; }
+    p { margin: 0.8rem 0; }
   </style>
 </head>
 <body>
@@ -110,7 +110,7 @@
         <h2>Study Tools</h2>
         <div id="dict-section">
           <h3>Built-in Dictionary</h3>
-          <p>Look up any word for definitions, part of speech, examples, and origin/derivation.</p>
+          <p>Look up a word for quick definitions (limited) + origin/derivation.</p>
           <input type="text" id="word-input" placeholder="Enter a word (e.g., gradient)" />
           <button id="search-btn">Look Up</button>
           <div id="result"></div>
@@ -119,96 +119,4 @@
     </section>
 
     <!-- Barrier Pages -->
-    <div id="intro" class="page">
-      <h2>THE BARRIERS TO STUDY</h2>
-      <p>Based on article "The Barriers to Study" by L. Ron Hubbard</p>
-      <p>It has been discovered that there are three definite barriers which can block a person’s ability to study and thus his ability to be educated. These barriers actually produce physical and mental reactions.</p>
-      <p>If one knows and understands what these barriers are and how to handle them, his ability to study and learn will be greatly increased.</p>
-      <p>The Barriers to Study form the core basis of The Technology of Study®.</p>
-      <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
-    </div>
-
-    <div id="mass" class="page">
-      <h2>The First Barrier to Study: Absence of Mass</h2>
-      <p>If one is attempting to understand the function and operation of a car or a computer or a solar system, the printed page and spoken word are no substitute for the object itself.</p>
-      <p>It would be difficult to understand how to use a computer for the first time if you did not have the computer there in front of you. In fact, lacking the object associated with a word can inhibit all understanding (I think we can agree here that attempting to study how an aircraft flies and the various parts of an aircraft, without ever seeing or touching an aircraft, or a reasonable mock-up of one, would make a successful study of it pretty much impossible).</p>
-      <p>If the mass of a subject is absent, you can actually feel squashed. It can make you feel bent, sort of spinny, sort of dead, or bored. A person studying a subject without the objects related to that subject, will experience these and several other specific reactions.</p>
-      <p>Knowing how to identify and handle these reactions is vital to a student's ability to grasp and use a subject - and more than vital to a teacher's ability to get a student to learn the subject.</p>
-      <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
-    </div>
-
-    <div id="gradient" class="page">
-      <h2>The Second Barrier to Study: Skipped Gradient</h2>
-      <p>A gradient is a way of learning or doing something step by step. A gradient can be easy where each step can be done easily, or it can be hard where each step is difficult to do.</p>
-      <p>Too steep a gradient consists of not having mastered prior skills before going on to more complicated or detailed steps.</p>
-      <p>A student who has skipped a gradient may feel a sort of confusion or a feeling of reeling (i.e., moving or swaying like you might fall).</p>
-      <p>These are two reactions a person can experience when they have missed a step or hit too steep a gradient in the subject they’re studying.</p>
-      <p>This is often referred to as “missed basic skills” or “insufficient basic skills.”</p>
-      <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
-    </div>
-
-    <div id="word" class="page">
-      <h2>The Third Barrier to Study: Misunderstood Word</h2>
-      <p>The third and most important barrier is the misunderstood word.</p>
-      <p>“Mis” means not or wrongly. “Misunderstood” means not understood or wrongly understood. A misunderstood word is a word which is not understood or a word which is wrongly understood.</p>
-      <p>Have you ever been reading a book or a report, gotten to the end of the page and couldn’t remember what you read? Therein lies the phenomena of the misunderstood word—all becomes distinctly blank beyond a word not understood or wrongly understood.</p>
-      <p>It can make you feel blank or washed out. It can make you feel “not there” and a sort of a nervous upset feeling can follow after that.</p>
-      <p>The matter is far more critical than one might surmise and of the three barriers it is the misunderstood that bears most upon human relations, the mind and understanding.</p>
-      <p>It is the misunderstood word that establishes aptitude—or lack of it.</p>
-      <p>It produces a vast panorama of reactions and is the prime factor involved with stupidity. It also determines whether or not one can actually perform a learned skill, and to what degree of proficiency. All of these are the result of one or more words or symbols not understood or wrongly understood.</p>
-      <p>The misunderstood word can stop a student in his tracks completely. Knowing how to determine when there is a misunderstood word or symbol, how to find it and how to handle it are critical to the success of any student.</p>
-      <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
-    </div>
-  </div>
-
-  <script>
-    function showPage(pageId) {
-      document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-      document.getElementById('main').style.display = (pageId === 'main') ? 'block' : 'none';
-      if (pageId !== 'main') {
-        document.getElementById(pageId).classList.add('active');
-      }
-    }
-    showPage('main'); // Start on main screen
-
-    // Dictionary lookup
-    document.getElementById('search-btn').addEventListener('click', async () => {
-      const word = document.getElementById('word-input').value.trim().toLowerCase();
-      if (!word) return alert('Please enter a word!');
-      const resultDiv = document.getElementById('result');
-      resultDiv.innerHTML = '<p>Loading...</p>';
-
-      try {
-        const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-        if (!res.ok) throw new Error('Word not found');
-        const data = await res.json();
-        const entry = data[0];
-
-        let html = `<h3>${entry.word}${entry.phonetic ? ` <small>(${entry.phonetic})</small>` : ''}</h3>`;
-        if (entry.origin) html += `<p><em>Origin/Derivation: ${entry.origin}</em></p>`;
-
-        entry.meanings.forEach(meaning => {
-          html += `<p class="pos">${meaning.partOfSpeech}</p>`;
-          meaning.definitions.forEach((def, i) => {
-            html += `<p>• ${def.definition}</p>`;
-            if (def.example) html += `<p><em>Example: ${def.example}</em></p>`;
-          });
-        });
-        resultDiv.innerHTML = html;
-      } catch (err) {
-        resultDiv.innerHTML = '<p style="color: #8B0000;">Word not found or no internet. Try another word!</p>';
-      }
-    });
-
-    // Register service worker for offline caching
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
-          .then(() => console.log('SW registered'))
-          .catch(err => console.log('SW error:', err));
-      });
-    }
-  </script>
-</body>
-
-</html>
+    <div id="intro" class="page
