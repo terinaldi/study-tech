@@ -93,7 +93,7 @@
     }
     #search-btn:hover { background: #A52A2A; }
     #result { margin-top: 1.8rem; font-size: 1.1rem; }
-    .pos { font-weight: bold; color: #8B0000; text-transform: capitalize; margin: 1.2rem 0 0.5rem; }
+    .pos { font-weight: bold; color: #8B0000; text-transform: capitalize; margin: 1.5rem 0 0.5rem; font-size: 1.3rem; }
     p { margin: 0.6rem 0; }
   </style>
 </head>
@@ -117,15 +117,15 @@
         <h2>Study Tools</h2>
         <div id="dict-section">
           <h3>Built-in Dictionary</h3>
-          <p>Look up a word for quick definitions (limited) + origin/derivation.</p>
-          <input type="text" id="word-input" placeholder="Enter a word (e.g., gradient)" />
+          <p>Quick lookup: limited definitions + origin (when available).</p>
+          <input type="text" id="word-input" placeholder="Enter a word (e.g., dying)" />
           <button id="search-btn">Look Up</button>
           <div id="result"></div>
         </div>
       </section>
     </div>
 
-    <!-- Barrier Pages (hidden initially) -->
+    <!-- Barrier Pages -->
     <div id="intro" class="page">
       <h2>THE BARRIERS TO STUDY</h2>
       <p>Based on article "The Barriers to Study" by L. Ron Hubbard</p>
@@ -170,7 +170,6 @@
 
   <script>
     function showPage(pageId) {
-      // Hide all pages and main content
       document.querySelectorAll('.page').forEach(el => el.style.display = 'none');
       document.getElementById('main-content').style.display = 'none';
 
@@ -180,9 +179,9 @@
         document.getElementById(pageId).style.display = 'block';
       }
     }
-    showPage('main'); // Load main on start
+    showPage('main');
 
-    // Dictionary lookup - minimal, numbered, with derivation
+    // Dictionary lookup - condensed POS grouping, numbered defs, derivation when available
     document.getElementById('search-btn').addEventListener('click', async () => {
       const word = document.getElementById('word-input').value.trim().toLowerCase();
       if (!word) {
@@ -200,14 +199,18 @@
 
         let html = `<h3>${entry.word}${entry.phonetic ? ` <small>(${entry.phonetic})</small>` : ''}</h3>`;
 
-        if (entry.origin) {
+        // Derivation / Origin
+        if (entry.origin && entry.origin.trim() !== '') {
           html += `<p><strong>Origin/Derivation:</strong> ${entry.origin}</p>`;
         } else {
-          html += `<p><em>No derivation info available</em></p>`;
+          html += `<p><em>No derivation info in this entry</em></p>`;
         }
 
+        // Group meanings by POS, but show one block per POS with all its defs numbered
         entry.meanings.forEach(meaning => {
-          html += `<p class="pos">${meaning.partOfSpeech}</p>`;
+          const pos = meaning.partOfSpeech.charAt(0).toUpperCase() + meaning.partOfSpeech.slice(1); // Capitalize
+          html += `<p class="pos">${pos}</p>`;
+
           meaning.definitions.slice(0, 3).forEach((def, index) => {
             html += `<p>${index + 1}. ${def.definition}`;
             if (def.example) html += ` <em>(e.g., ${def.example})</em>`;
@@ -217,11 +220,10 @@
 
         resultDiv.innerHTML = html;
       } catch (err) {
-        resultDiv.innerHTML = '<p style="color: #8B0000;">Word not found or no connection. Try another word!</p>';
+        resultDiv.innerHTML = '<p style="color: #8B0000;">Word not found or no connection. Try another!</p>';
       }
     });
 
-    // Service worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js');
