@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Tech</title>
+  <link rel="manifest" href="manifest.json"/>
+  <meta name="theme-color" content="#000000"/>
+  <link rel="apple-touch-icon" href="icon.png"/> <!-- iOS home screen icon -->
+</head>
+<body>
+  <h1>Study Tech</h1>
+  <p>Your personal study tools here. Add timers, flashcards, notes, etc.</p>
+
+  <!-- Example: simple Pomodoro-style timer button -->
+  <button onclick="startTimer()">Start 25-min Study Session</button>
+  <p id="timer">25:00</p>
+
+  <script>
+    let timeLeft = 25 * 60;
+    let timerId;
+    function startTimer() {
+      if (timerId) clearInterval(timerId);
+      timeLeft = 25 * 60;
+      updateTimer();
+      timerId = setInterval(() => {
+        timeLeft--;
+        updateTimer();
+        if (timeLeft <= 0) {
+          clearInterval(timerId);
+          alert("Study session done! Take a break.");
+        }
+      }, 1000);
+    }
+    function updateTimer() {
+      let min = Math.floor(timeLeft / 60);
+      let sec = timeLeft % 60;
+      document.getElementById("timer").innerText = `${min}:${sec < 10 ? '0' : ''}${sec}`;
+    }
+
+    // Register service worker for offline support
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('Service Worker registered'))
+          .catch(err => console.log('Service Worker failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>
