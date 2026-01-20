@@ -1,63 +1,232 @@
-<script>
-  function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(el => el.style.display = 'none');
-    document.getElementById('main-content').style.display = 'none';
-
-    if (pageId === 'main') {
-      document.getElementById('main-content').style.display = 'block';
-    } else {
-      document.getElementById(pageId).style.display = 'block';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Tech</title>
+  <link rel="manifest" href="manifest.json"/>
+  <meta name="theme-color" content="#8B0000"/>
+  <!-- iOS home screen support -->
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icon.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Study Tech">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: #222;
+      line-height: 1.7;
     }
-  }
-  showPage('main');
-
-  // Dictionary lookup - more condensed, grouped POS, origin only if present
-  document.getElementById('search-btn').addEventListener('click', async () => {
-    const word = document.getElementById('word-input').value.trim().toLowerCase();
-    if (!word) {
-      alert('Please enter a word!');
-      return;
+    header {
+      background: linear-gradient(to bottom, #A52A2A, #8B0000);
+      color: white;
+      text-align: center;
+      padding: 2.5rem 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
-    const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = '<p>Loading...</p>';
+    h1 { margin: 0; font-size: 2.8rem; font-weight: 600; }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+    section { margin-bottom: 4rem; }
+    h2 {
+      color: #8B0000;
+      font-size: 1.8rem;
+      border-bottom: 3px solid #A52A2A;
+      padding-bottom: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+    h3 { color: #A52A2A; font-size: 1.5rem; margin-top: 2rem; }
+    .barrier-btn {
+      display: block;
+      width: 100%;
+      padding: 1.2rem;
+      margin: 1rem 0;
+      background: #8B0000;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.3rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 6px rgba(139,0,0,0.2);
+    }
+    .barrier-btn:hover { background: #A52A2A; transform: translateY(-2px); }
+    .page {
+      display: none;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    #dict-section {
+      margin-top: 3rem;
+      padding: 2rem;
+      background: #fdfdfd;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(139,0,0,0.08);
+      border: 1px solid #eee;
+    }
+    #word-input {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+    #search-btn {
+      background: #8B0000;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #search-btn:hover { background: #A52A2A; }
+    #result { margin-top: 1.8rem; font-size: 1.1rem; }
+    .pos { font-weight: bold; color: #8B0000; text-transform: capitalize; margin: 1.5rem 0 0.5rem; font-size: 1.3rem; }
+    p { margin: 0.6rem 0; }
+    small a { color: #8B0000; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Study Tech!</h1>
+  </header>
 
-    try {
-      const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-      if (!res.ok) throw new Error('Not found');
-      const data = await res.json();
-      const entry = data[0];
+  <div class="container">
+    <div id="main-content">
+      <section>
+        <h2>The Study Barriers</h2>
+        <p>Tap each barrier to learn more about what can block effective study.</p>
+        <button class="barrier-btn" onclick="showPage('intro')">Intro: The Barriers to Study</button>
+        <button class="barrier-btn" onclick="showPage('mass')">1. Absence of Mass</button>
+        <button class="barrier-btn" onclick="showPage('gradient')">2. Skipped Gradient</button>
+        <button class="barrier-btn" onclick="showPage('word')">3. Misunderstood Word</button>
+      </section>
 
-      let html = `<h3>${entry.word}${entry.phonetic ? ` <small>(${entry.phonetic})</small>` : ''}</h3>`;
+      <section id="study-tools">
+        <h2>Study Tools</h2>
+        <div id="dict-section">
+          <h3>Built-in Dictionary</h3>
+          <p>Quick lookup: limited definitions + origin (when available).</p>
+          <input type="text" id="word-input" placeholder="Enter a word (e.g., hello)" />
+          <button id="search-btn">Look Up</button>
+          <div id="result"></div>
+        </div>
+      </section>
+    </div>
 
-      // Origin only if available
-      if (entry.origin && entry.origin.trim() !== '') {
-        html += `<p><strong>Origin/Derivation:</strong> ${entry.origin}</p>`;
-      } // No fallback message to keep minimal; can add if wanted
+    <!-- Barrier pages -->
+    <div id="intro" class="page">
+      <h2>THE BARRIERS TO STUDY</h2>
+      <p>Based on article "The Barriers to Study" by L. Ron Hubbard</p>
+      <p>It has been discovered that there are three definite barriers which can block a person’s ability to study and thus his ability to be educated. These barriers actually produce physical and mental reactions.</p>
+      <p>If one knows and understands what these barriers are and how to handle them, his ability to study and learn will be greatly increased.</p>
+      <p>The Barriers to Study form the core basis of The Technology of Study®.</p>
+      <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
+    </div>
 
-      // Group by POS, max 2 defs each
-      entry.meanings.forEach(meaning => {
-        const pos = meaning.partOfSpeech.charAt(0).toUpperCase() + meaning.partOfSpeech.slice(1);
-        html += `<p class="pos">${pos}</p>`;
+    <div id="mass" class="page">
+      <h2>The First Barrier to Study: Absence of Mass</h2>
+      <p>If one is attempting to understand the function and operation of a car or a computer or a solar system, the printed page and spoken word are no substitute for the object itself.</p>
+      <p>It would be difficult to understand how to use a computer for the first time if you did not have the computer there in front of you. In fact, lacking the object associated with a word can inhibit all understanding (I think we can agree here that attempting to study how an aircraft flies and the various parts of an aircraft, without ever seeing or touching an aircraft, or a reasonable mock-up of one, would make a successful study of it pretty much impossible).</p>
+      <p>If the mass of a subject is absent, you can actually feel squashed. It can make you feel bent, sort of spinny, sort of dead, or bored. A person studying a subject without the objects related to that subject, will experience these and several other specific reactions.</p>
+      <p>Knowing how to identify and handle these reactions is vital to a student's ability to grasp and use a subject - and more than vital to a teacher's ability to get a student to learn the subject.</p>
+      <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
+    </div>
 
-        meaning.definitions.slice(0, 2).forEach((def, index) => {
-          html += `<p>${index + 1}. ${def.definition}`;
-          if (def.example) html += ` <em>(e.g., ${def.example})</em>`;
-          html += `</p>`;
+    <div id="gradient" class="page">
+      <h2>The Second Barrier to Study: Skipped Gradient</h2>
+      <p>A gradient is a way of learning or doing something step by step. A gradient can be easy where each step can be done easily, or it can be hard where each step is difficult to do.</p>
+      <p>Too steep a gradient consists of not having mastered prior skills before going on to more complicated or detailed steps.</p>
+      <p>A student who has skipped a gradient may feel a sort of confusion or a feeling of reeling (i.e., moving or swaying like you might fall).</p>
+      <p>These are two reactions a person can experience when they have missed a step or hit too steep a gradient in the subject they’re studying.</p>
+      <p>This is often referred to as “missed basic skills” or “insufficient basic skills.”</p>
+      <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
+    </div>
+
+    <div id="word" class="page">
+      <h2>The Third Barrier to Study: Misunderstood Word</h2>
+      <p>The third and most important barrier is the misunderstood word.</p>
+      <p>“Mis” means not or wrongly. “Misunderstood” means not understood or wrongly understood. A misunderstood word is a word which is not understood or a word which is wrongly understood.</p>
+      <p>Have you ever been reading a book or a report, gotten to the end of the page and couldn’t remember what you read? Therein lies the phenomena of the misunderstood word—all becomes distinctly blank beyond a word not understood or wrongly understood.</p>
+      <p>It can make you feel blank or washed out. It can make you feel “not there” and a sort of a nervous upset feeling can follow after that.</p>
+      <p>The matter is far more critical than one might surmise and of the three barriers it is the misunderstood that bears most upon human relations, the mind and understanding.</p>
+      <p>It is the misunderstood word that establishes aptitude—or lack of it.</p>
+      <p>It produces a vast panorama of reactions and is the prime factor involved with stupidity. It also determines whether or not one can actually perform a learned skill, and to what degree of proficiency. All of these are the result of one or more words or symbols not understood or wrongly understood.</p>
+      <p>The misunderstood word can stop a student in his tracks completely. Knowing how to determine when there is a misunderstood word or symbol, how to find it and how to handle it are critical to the success of any student.</p>
+      <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
+    </div>
+  </div>
+
+  <script>
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(el => el.style.display = 'none');
+      document.getElementById('main-content').style.display = 'none';
+
+      if (pageId === 'main') {
+        document.getElementById('main-content').style.display = 'block';
+      } else {
+        document.getElementById(pageId).style.display = 'block';
+      }
+    }
+    showPage('main');
+
+    document.getElementById('search-btn').addEventListener('click', async () => {
+      const word = document.getElementById('word-input').value.trim().toLowerCase();
+      if (!word) {
+        alert('Please enter a word!');
+        return;
+      }
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = '<p>Loading...</p>';
+
+      try {
+        const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+        if (!res.ok) throw new Error('Not found');
+        const data = await res.json();
+        const entry = data[0];
+
+        let html = `<h3>${entry.word}${entry.phonetic ? ` <small>(${entry.phonetic})</small>` : ''}</h3>`;
+
+        if (entry.origin && entry.origin.trim()) {
+          html += `<p><strong>Origin/Derivation:</strong> ${entry.origin}</p>`;
+        }
+
+        entry.meanings.forEach(meaning => {
+          const pos = meaning.partOfSpeech.charAt(0).toUpperCase() + meaning.partOfSpeech.slice(1);
+          html += `<p class="pos">${pos}</p>`;
+          meaning.definitions.slice(0, 2).forEach((def, index) => {
+            html += `<p>${index + 1}. ${def.definition}`;
+            if (def.example) html += ` <em>(e.g., ${def.example})</em>`;
+            html += `</p>`;
+          });
         });
-      });
 
-      // Optional fallback link for etymology
-      html += `<p><small>For more etymology, check <a href="https://www.etymonline.com/word/${word}" target="_blank" style="color: #8B0000;">etymonline.com</a></small></p>`;
+        html += `<p><small>For more etymology → <a href="https://www.etymonline.com/word/${word}" target="_blank">etymonline.com</a></small></p>`;
 
-      resultDiv.innerHTML = html;
-    } catch (err) {
-      resultDiv.innerHTML = '<p style="color: #8B0000;">Word not found or no connection. Try another!</p>';
-    }
-  });
-
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js');
+        resultDiv.innerHTML = html;
+      } catch (err) {
+        resultDiv.innerHTML = '<p style="color: #8B0000;">Word not found or no connection. Try another!</p>';
+      }
     });
-  }
-</script>
+
+    // Service worker (safe - won't break page if fails)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {}); // silent fail
+      });
+    }
+  </script>
+</body>
+</html>
