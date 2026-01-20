@@ -6,7 +6,7 @@
   <title>Study Tech</title>
   <link rel="manifest" href="manifest.json"/>
   <meta name="theme-color" content="#8B0000"/>
-  <!-- iOS support -->
+  <!-- iOS home screen support -->
   <link rel="apple-touch-icon" href="icon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="icon.png">
   <link rel="apple-touch-icon" sizes="512x512" href="icon.png">
@@ -95,7 +95,6 @@
     #result { margin-top: 1.8rem; font-size: 1.1rem; }
     .pos { font-weight: bold; color: #8B0000; text-transform: capitalize; margin: 1.5rem 0 0.5rem; font-size: 1.3rem; }
     p { margin: 0.6rem 0; }
-    .etym-link { color: #8B0000; text-decoration: underline; font-size: 0.9rem; }
   </style>
 </head>
 <body>
@@ -118,7 +117,7 @@
         <h2>Study Tools</h2>
         <div id="dict-section">
           <h3>Built-in Dictionary</h3>
-          <p>Quick lookup with definitions + origin/derivation (direct from reliable sources).</p>
+          <p>Simple lookup: definitions + origin/derivation when available.</p>
           <input type="text" id="word-input" placeholder="Enter a word (e.g., hello)" />
           <button id="search-btn">Look Up</button>
           <div id="result"></div>
@@ -182,6 +181,7 @@
     }
     showPage('main');
 
+    // Dictionary lookup
     document.getElementById('search-btn').addEventListener('click', async () => {
       const word = document.getElementById('word-input').value.trim().toLowerCase();
       if (!word) {
@@ -199,14 +199,14 @@
 
         let html = `<h3>${entry.word}${entry.phonetic ? ` <small>(${entry.phonetic})</small>` : ''}</h3>`;
 
-        // Derivation: Show API origin if present, else link to etymonline (solid reliable source)
+        // Derivation / Origin – shown directly when present
         if (entry.origin && entry.origin.trim()) {
-          html += `<p><strong>Origin/Derivation:</strong> ${entry.origin}</p>`;
+          html += `<p><strong>Derivation/Origin:</strong> ${entry.origin}</p>`;
         } else {
-          html += `<p><strong>Origin/Derivation:</strong> See detailed history at <a href="https://www.etymonline.com/word/${word}" target="_blank" class="etym-link">etymonline.com/${word}</a></p>`;
+          html += `<p><em>Derivation not listed in this entry</em></p>`;
         }
 
-        // Group defs by POS, max 2 each for minimal clean output
+        // Group definitions by part of speech, max 2 definitions each
         entry.meanings.forEach(meaning => {
           const pos = meaning.partOfSpeech.charAt(0).toUpperCase() + meaning.partOfSpeech.slice(1);
           html += `<p class="pos">${pos}</p>`;
@@ -223,6 +223,7 @@
       }
     });
 
+    // Service worker registration (silent fail if not present)
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js').catch(() => {});
