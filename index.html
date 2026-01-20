@@ -20,53 +20,53 @@
       padding: 0;
       background: #fff;
       color: #222;
-      line-height: 1.6;
-      font-size: 17px; /* comfortable for phone reading */
+      line-height: 1.65;
+      font-size: 17px;
     }
     header {
       background: linear-gradient(to bottom, #A52A2A, #8B0000);
       color: white;
       text-align: center;
-      padding: 2.5rem 1rem;
+      padding: 2.8rem 1.2rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     h1 {
       margin: 0;
-      font-size: 2.4rem;
+      font-size: 2.6rem;
       font-weight: 600;
     }
     .container {
       max-width: 960px;
       margin: 0 auto;
-      padding: 1.5rem;
+      padding: 1.6rem 1.2rem;
     }
     h2 {
       color: #8B0000;
-      font-size: 1.9rem;
+      font-size: 2rem;
       border-bottom: 3px solid #A52A2A;
-      padding-bottom: 0.5rem;
-      margin: 2rem 0 1rem;
+      padding-bottom: 0.6rem;
+      margin: 2.2rem 0 1.2rem;
     }
     h3 {
       color: #A52A2A;
-      font-size: 1.6rem;
+      font-size: 1.65rem;
       margin: 1.8rem 0 1rem;
     }
     .barrier-btn {
       display: block;
       width: 100%;
-      padding: 1.3rem 1rem;
-      margin: 1.2rem 0;
+      padding: 1.4rem 1.2rem;
+      margin: 1.3rem 0;
       background: #8B0000;
       color: white;
       border: none;
       border-radius: 12px;
-      font-size: 1.35rem;
+      font-size: 1.4rem;
       font-weight: 500;
       cursor: pointer;
       text-align: left;
       transition: all 0.25s ease;
-      box-shadow: 0 3px 8px rgba(139,0,0,0.2);
+      box-shadow: 0 3px 10px rgba(139,0,0,0.2);
     }
     .barrier-btn:hover {
       background: #A52A2A;
@@ -75,34 +75,34 @@
     .page {
       display: none;
       background: #fff;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+      padding: 1.6rem;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
     ol, ul {
-      padding-left: 1.8rem;
-      margin: 1rem 0;
+      padding-left: 1.9rem;
+      margin: 1.2rem 0;
     }
     li {
-      margin-bottom: 0.9rem;
-      font-size: 1.05rem;
+      margin-bottom: 1rem;
+      font-size: 1.08rem;
     }
     strong {
       color: #8B0000;
     }
     #dict-section {
-      margin-top: 2.5rem;
-      padding: 1.8rem;
+      margin-top: 2.8rem;
+      padding: 1.9rem;
       background: #fdfdfd;
       border-radius: 16px;
       border: 1px solid #eee;
-      box-shadow: 0 4px 18px rgba(139,0,0,0.08);
+      box-shadow: 0 4px 20px rgba(139,0,0,0.08);
     }
     #word-input {
       width: 100%;
-      padding: 1rem;
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
+      padding: 1.1rem;
+      font-size: 1.25rem;
+      margin-bottom: 1.1rem;
       border: 2px solid #ccc;
       border-radius: 10px;
       box-sizing: border-box;
@@ -111,22 +111,22 @@
       background: #8B0000;
       color: white;
       border: none;
-      padding: 1rem 2rem;
+      padding: 1.1rem 2.2rem;
       border-radius: 10px;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       cursor: pointer;
       transition: background 0.3s;
     }
     #search-btn:hover { background: #A52A2A; }
-    #result { margin-top: 1.5rem; font-size: 1.05rem; }
+    #result { margin-top: 1.6rem; font-size: 1.08rem; }
     .pos {
       font-weight: bold;
       color: #8B0000;
       text-transform: capitalize;
-      margin: 1.4rem 0 0.6rem;
-      font-size: 1.3rem;
+      margin: 1.6rem 0 0.6rem;
+      font-size: 1.35rem;
     }
-    p { margin: 0.9rem 0; font-size: 1.05rem; }
+    p { margin: 1rem 0; font-size: 1.08rem; }
   </style>
 </head>
 <body>
@@ -164,7 +164,52 @@
       </section>
     </div>
 
-    <!-- New pages -->
+    <!-- Intro: The Barriers to Study -->
+    <div id="intro" class="page">
+      <h2>THE BARRIERS TO STUDY</h2>
+      <p>Based on article "The Barriers to Study" by L. Ron Hubbard</p>
+      <p>It has been discovered that there are three definite barriers which can block a person’s ability to study and thus his ability to be educated. These barriers actually produce physical and mental reactions.</p>
+      <p>If one knows and understands what these barriers are and how to handle them, his ability to study and learn will be greatly increased.</p>
+      <p>The Barriers to Study form the core basis of The Technology of Study®.</p>
+      <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
+    </div>
+
+    <!-- Absence of Mass -->
+    <div id="mass" class="page">
+      <h2>The First Barrier to Study: Absence of Mass</h2>
+      <p>If one is attempting to understand the function and operation of a car or a computer or a solar system, the printed page and spoken word are no substitute for the object itself.</p>
+      <p>It would be difficult to understand how to use a computer for the first time if you did not have the computer there in front of you. In fact, lacking the object associated with a word can inhibit all understanding (I think we can agree here that attempting to study how an aircraft flies and the various parts of an aircraft, without ever seeing or touching an aircraft, or a reasonable mock-up of one, would make a successful study of it pretty much impossible).</p>
+      <p>If the mass of a subject is absent, you can actually feel squashed. It can make you feel bent, sort of spinny, sort of dead, or bored. A person studying a subject without the objects related to that subject, will experience these and several other specific reactions.</p>
+      <p>Knowing how to identify and handle these reactions is vital to a student's ability to grasp and use a subject - and more than vital to a teacher's ability to get a student to learn the subject.</p>
+      <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
+    </div>
+
+    <!-- Skipped Gradient -->
+    <div id="gradient" class="page">
+      <h2>The Second Barrier to Study: Skipped Gradient</h2>
+      <p>A gradient is a way of learning or doing something step by step. A gradient can be easy where each step can be done easily, or it can be hard where each step is difficult to do.</p>
+      <p>Too steep a gradient consists of not having mastered prior skills before going on to more complicated or detailed steps.</p>
+      <p>A student who has skipped a gradient may feel a sort of confusion or a feeling of reeling (i.e., moving or swaying like you might fall).</p>
+      <p>These are two reactions a person can experience when they have missed a step or hit too steep a gradient in the subject they’re studying.</p>
+      <p>This is often referred to as “missed basic skills” or “insufficient basic skills.”</p>
+      <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
+    </div>
+
+    <!-- Misunderstood Word -->
+    <div id="word" class="page">
+      <h2>The Third Barrier to Study: Misunderstood Word</h2>
+      <p>The third and most important barrier is the misunderstood word.</p>
+      <p>“Mis” means not or wrongly. “Misunderstood” means not understood or wrongly understood. A misunderstood word is a word which is not understood or a word which is wrongly understood.</p>
+      <p>Have you ever been reading a book or a report, gotten to the end of the page and couldn’t remember what you read? Therein lies the phenomena of the misunderstood word—all becomes distinctly blank beyond a word not understood or wrongly understood.</p>
+      <p>It can make you feel blank or washed out. It can make you feel “not there” and a sort of a nervous upset feeling can follow after that.</p>
+      <p>The matter is far more critical than one might surmise and of the three barriers it is the misunderstood that bears most upon human relations, the mind and understanding.</p>
+      <p>It is the misunderstood word that establishes aptitude—or lack of it.</p>
+      <p>It produces a vast panorama of reactions and is the prime factor involved with stupidity. It also determines whether or not one can actually perform a learned skill, and to what degree of proficiency. All of these are the result of one or more words or symbols not understood or wrongly understood.</p>
+      <p>The misunderstood word can stop a student in his tracks completely. Knowing how to determine when there is a misunderstood word or symbol, how to find it and how to handle it are critical to the success of any student.</p>
+      <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
+    </div>
+
+    <!-- Why Clear Your Words? -->
     <div id="why-clear" class="page">
       <h2>Why Clear Your Words?</h2>
       <p>Basic Word Clearing is the method of finding a misunderstood word by looking earlier in the text than where you are having trouble.</p>
@@ -177,6 +222,7 @@
       <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
     </div>
 
+    <!-- How to Clear a Word -->
     <div id="how-to-clear" class="page">
       <h2>How to Clear a Word</h2>
       <p>Basic Word Clearing is done as follows:</p>
@@ -205,6 +251,7 @@
       <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
     </div>
 
+    <!-- How to Help Another Clear Words -->
     <div id="help-another" class="page">
       <h2>How to Help Another Clear Words</h2>
       <h3>Simple Reading Aloud Word Clearing</h3>
@@ -229,12 +276,6 @@
       <p>After doing Simple Reading Aloud Word Clearing, the person’s next step would be to learn how to use a dictionary to look up and clear the meaning of words himself as he goes along.</p>
       <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
     </div>
-
-    <!-- Existing barrier pages (kept short for brevity here; copy your previous versions if needed) -->
-    <div id="intro" class="page">... [your existing intro content] ...</div>
-    <div id="mass" class="page">... [your existing mass content] ...</div>
-    <div id="gradient" class="page">... [your existing gradient content] ...</div>
-    <div id="word" class="page">... [your existing misunderstood word content] ...</div>
   </div>
 
   <script>
@@ -250,6 +291,7 @@
     }
     showPage('main');
 
+    // Dictionary lookup
     document.getElementById('search-btn').addEventListener('click', async () => {
       const word = document.getElementById('word-input').value.trim().toLowerCase();
       if (!word) {
