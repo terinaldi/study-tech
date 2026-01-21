@@ -335,7 +335,7 @@
         if (entry.origin && entry.origin.trim()) {
           html += `<p><strong>Derivation/Origin:</strong> ${entry.origin}</p>`;
         } else {
-          html += `<p><em>Derivation not listed in this entry</em></p>`;
+          html += `<p><em>Origin/derivation not available here</em></p>`;
         }
 
         entry.meanings.forEach(meaning => {
@@ -344,14 +344,13 @@
 
           let defs = meaning.definitions;
 
-          // Simple client-side "filter" by level
           if (level === 'beginner') {
-            defs = defs.filter(def => def.definition.length <= 60); // very short & simple
-            if (defs.length > 1) defs = defs.slice(0, 1); // max 1
+            defs = defs.filter(def => def.definition.length <= 60);
+            if (defs.length > 1) defs = defs.slice(0, 1);
           } else if (level === 'intermediate') {
-            defs = defs.filter(def => def.definition.length <= 120); // medium length
-            if (defs.length > 3) defs = defs.slice(0, 3); // max 3
-          } // advanced: show all
+            defs = defs.filter(def => def.definition.length <= 120);
+            if (defs.length > 3) defs = defs.slice(0, 3);
+          } // advanced: all
 
           defs.forEach((def, index) => {
             html += `<p>${index + 1}. ${def.definition}`;
