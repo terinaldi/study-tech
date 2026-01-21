@@ -6,7 +6,7 @@
   <title>Study Tech</title>
   <link rel="manifest" href="manifest.json"/>
   <meta name="theme-color" content="#8B0000"/>
-  <!-- iOS home screen support -->
+  <!-- iOS support -->
   <link rel="apple-touch-icon" href="icon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="icon.png">
   <link rel="apple-touch-icon" sizes="512x512" href="icon.png">
@@ -20,79 +20,56 @@
       padding: 0;
       background: #fff;
       color: #222;
-      line-height: 1.65;
-      font-size: 17px;
+      line-height: 1.7;
+      font-size: 18px;
     }
     header {
       background: linear-gradient(to bottom, #A52A2A, #8B0000);
       color: white;
       text-align: center;
-      padding: 2.8rem 1.2rem;
+      padding: 3rem 1.2rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
-    h1 {
-      margin: 0;
-      font-size: 2.6rem;
-      font-weight: 600;
-    }
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 1.6rem 1.2rem;
-    }
+    h1 { margin: 0; font-size: 2.8rem; font-weight: 600; }
+    .container { max-width: 920px; margin: 0 auto; padding: 1.8rem 1.2rem; }
     h2 {
       color: #8B0000;
-      font-size: 2rem;
+      font-size: 2.1rem;
       border-bottom: 3px solid #A52A2A;
       padding-bottom: 0.6rem;
-      margin: 2.2rem 0 1.2rem;
+      margin: 2.4rem 0 1.2rem;
     }
-    h3 {
-      color: #A52A2A;
-      font-size: 1.65rem;
-      margin: 1.8rem 0 1rem;
-    }
+    h3 { color: #A52A2A; font-size: 1.7rem; margin: 2rem 0 1rem; }
     .barrier-btn {
       display: block;
       width: 100%;
-      padding: 1.4rem 1.2rem;
-      margin: 1.3rem 0;
+      padding: 1.5rem 1.2rem;
+      margin: 1.4rem 0;
       background: #8B0000;
       color: white;
       border: none;
-      border-radius: 12px;
-      font-size: 1.4rem;
+      border-radius: 14px;
+      font-size: 1.45rem;
       font-weight: 500;
       cursor: pointer;
       text-align: left;
       transition: all 0.25s ease;
       box-shadow: 0 3px 10px rgba(139,0,0,0.2);
     }
-    .barrier-btn:hover {
-      background: #A52A2A;
-      transform: translateY(-2px);
-    }
+    .barrier-btn:hover { background: #A52A2A; transform: translateY(-2px); }
     .page {
       display: none;
       background: #fff;
-      padding: 1.6rem;
+      padding: 1.8rem;
       border-radius: 14px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
-    ol, ul {
-      padding-left: 1.9rem;
-      margin: 1.2rem 0;
-    }
-    li {
-      margin-bottom: 1rem;
-      font-size: 1.08rem;
-    }
-    strong {
-      color: #8B0000;
-    }
+    ol, ul { padding-left: 2rem; margin: 1.4rem 0; }
+    li { margin-bottom: 1.1rem; font-size: 1.1rem; }
+    strong { color: #8B0000; }
     #dict-section {
-      margin-top: 2.8rem;
-      padding: 1.9rem;
+      margin-top: 3rem;
+      padding: 2rem;
       background: #fdfdfd;
       border-radius: 16px;
       border: 1px solid #eee;
@@ -100,33 +77,58 @@
     }
     #word-input {
       width: 100%;
-      padding: 1.1rem;
-      font-size: 1.25rem;
-      margin-bottom: 1.1rem;
+      padding: 1.2rem;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
       border: 2px solid #ccc;
       border-radius: 10px;
       box-sizing: border-box;
+    }
+    #level-select {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      background: white;
     }
     #search-btn {
       background: #8B0000;
       color: white;
       border: none;
-      padding: 1.1rem 2.2rem;
+      padding: 1.2rem 2.4rem;
       border-radius: 10px;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       cursor: pointer;
       transition: background 0.3s;
     }
     #search-btn:hover { background: #A52A2A; }
-    #result { margin-top: 1.6rem; font-size: 1.08rem; }
+    #result { margin-top: 1.8rem; font-size: 1.1rem; }
     .pos {
       font-weight: bold;
       color: #8B0000;
       text-transform: capitalize;
       margin: 1.6rem 0 0.6rem;
-      font-size: 1.35rem;
+      font-size: 1.4rem;
     }
-    p { margin: 1rem 0; font-size: 1.08rem; }
+    p { margin: 1.1rem 0; font-size: 1.1rem; }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      margin: 1.5rem 0;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
@@ -157,6 +159,11 @@
         <div id="dict-section">
           <h3>Built-in Dictionary</h3>
           <p>Simple lookup: definitions + origin/derivation when available.</p>
+          <select id="level-select">
+            <option value="beginner">Beginner / Elementary Level</option>
+            <option value="intermediate" selected>Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </select>
           <input type="text" id="word-input" placeholder="Enter a word (e.g., hello)" />
           <button id="search-btn">Look Up</button>
           <div id="result"></div>
@@ -164,13 +171,24 @@
       </section>
     </div>
 
-    <!-- Intro: The Barriers to Study -->
+    <!-- Intro with video -->
     <div id="intro" class="page">
       <h2>THE BARRIERS TO STUDY</h2>
       <p>Based on article "The Barriers to Study" by L. Ron Hubbard</p>
       <p>It has been discovered that there are three definite barriers which can block a person’s ability to study and thus his ability to be educated. These barriers actually produce physical and mental reactions.</p>
       <p>If one knows and understands what these barriers are and how to handle them, his ability to study and learn will be greatly increased.</p>
       <p>The Barriers to Study form the core basis of The Technology of Study®.</p>
+
+      <div class="video-container">
+        <iframe 
+          src="https://www.youtube.com/embed/M-iQD2B7ZjE?start=110" 
+          title="Study Technology Video" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+
       <button class="barrier-btn" onclick="showPage('main')">Back to Main</button>
     </div>
 
@@ -279,6 +297,8 @@
   </div>
 
   <script>
+    let currentWord = '';
+
     function showPage(pageId) {
       document.querySelectorAll('.page').forEach(el => el.style.display = 'none');
       document.getElementById('main-content').style.display = 'none';
@@ -288,18 +308,21 @@
       } else {
         document.getElementById(pageId).style.display = 'block';
       }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     showPage('main');
 
-    // Dictionary lookup
-    document.getElementById('search-btn').addEventListener('click', async () => {
+    async function lookupWord() {
       const word = document.getElementById('word-input').value.trim().toLowerCase();
-      if (!word) {
-        alert('Please enter a word!');
-        return;
-      }
+      if (!word) return;
+
+      currentWord = word;
+
       const resultDiv = document.getElementById('result');
       resultDiv.innerHTML = '<p>Loading...</p>';
+
+      const level = document.getElementById('level-select').value;
 
       try {
         const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
@@ -318,7 +341,19 @@
         entry.meanings.forEach(meaning => {
           const pos = meaning.partOfSpeech.charAt(0).toUpperCase() + meaning.partOfSpeech.slice(1);
           html += `<p class="pos">${pos}</p>`;
-          meaning.definitions.slice(0, 2).forEach((def, index) => {
+
+          let defs = meaning.definitions;
+
+          // Simple client-side "filter" by level
+          if (level === 'beginner') {
+            defs = defs.filter(def => def.definition.length <= 60); // very short & simple
+            if (defs.length > 1) defs = defs.slice(0, 1); // max 1
+          } else if (level === 'intermediate') {
+            defs = defs.filter(def => def.definition.length <= 120); // medium length
+            if (defs.length > 3) defs = defs.slice(0, 3); // max 3
+          } // advanced: show all
+
+          defs.forEach((def, index) => {
             html += `<p>${index + 1}. ${def.definition}`;
             if (def.example) html += ` <em>(e.g., ${def.example})</em>`;
             html += `</p>`;
@@ -329,6 +364,12 @@
       } catch (err) {
         resultDiv.innerHTML = '<p style="color: #8B0000;">Word not found or no connection. Try another!</p>';
       }
+    }
+
+    document.getElementById('search-btn').addEventListener('click', lookupWord);
+
+    document.getElementById('level-select').addEventListener('change', () => {
+      if (currentWord) lookupWord();
     });
 
     if ('serviceWorker' in navigator) {
