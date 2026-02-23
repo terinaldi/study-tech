@@ -26,14 +26,20 @@
       --border: #E2E2E2;
       --shadow-sm: 0 2px 10px rgba(0,0,0,0.07);
       --shadow-md: 0 8px 28px rgba(139,0,0,0.11);
+      --safe-bottom-fallback: 48px; /* fallback for home indicator in portrait */
     }
 
     * { box-sizing: border-box; }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", system-ui, Roboto, Helvetica, Arial, sans-serif;
+    html, body {
+      height: 100dvh; /* dynamic viewport height – fixes bottom cutoff better than 100vh */
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", system-ui, Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.78;
@@ -41,11 +47,12 @@
       font-weight: 400;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      min-height: 100vh;
+      min-height: 100dvh;
       padding-top: env(safe-area-inset-top);
-      padding-bottom: env(safe-area-inset-bottom);
+      padding-bottom: calc(env(safe-area-inset-bottom) + var(--safe-bottom-fallback));
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
+      overscroll-behavior: contain; /* prevents pull-to-refresh clipping */
     }
 
     header {
@@ -108,11 +115,7 @@
     .container {
       max-width: 960px;
       margin: 0 auto;
-      padding: 1.6rem 1.3rem 5rem; /* extra bottom for safe area */
-    }
-
-    main { /* wrap content if needed, but here we use .container */
-      padding-top: 1rem;
+      padding: 1.6rem 1.3rem calc(5rem + env(safe-area-inset-bottom));
     }
 
     h2 {
@@ -193,7 +196,7 @@
       display: none;
       background: var(--card);
       margin: 1.2rem 0 2.5rem;
-      padding: 2.4rem 2rem calc(3.5rem + env(safe-area-inset-bottom));
+      padding: 2.4rem 2rem calc(4rem + env(safe-area-inset-bottom));
       border-radius: 22px;
       box-shadow: var(--shadow-md);
     }
@@ -302,6 +305,7 @@
 
     #result {
       margin-top: 2.4rem;
+      padding-bottom: 3rem; /* extra buffer for bottom cutoff */
     }
 
     .dict-word {
@@ -381,8 +385,8 @@
       text-align: center;
       color: #666;
       font-size: 1rem;
-      margin: 5rem 0 5rem;
-      padding: 2.5rem 0 0;
+      margin: 5rem 0 calc(5rem + env(safe-area-inset-bottom));
+      padding-top: 2.5rem;
       border-top: 1px solid #EEE;
     }
 
@@ -483,7 +487,6 @@
       </section>
     </div>
 
-    <!-- Pages -->
     <div id="intro" class="page">
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
       <h2>THE BARRIERS TO STUDY</h2>
@@ -506,8 +509,6 @@
       <p>Knowing how to identify and handle these reactions is vital to a student's ability to grasp and use a subject - and more than vital to a teacher's ability to get a student to learn the subject.</p>
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
     </div>
-
-    <!-- The other pages remain unchanged in content – just the safe-area padding is applied via body/.page -->
 
     <div id="gradient" class="page">
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
