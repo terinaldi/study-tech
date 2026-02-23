@@ -3,26 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Study Tech Dino Adventure!</title>
+  <title>Study Tech</title>
   <link rel="manifest" href="manifest.json"/>
-  <meta name="theme-color" content="#4CAF50"/>
+  <meta name="theme-color" content="#8B0000"/>
   <!-- iOS support -->
   <link rel="apple-touch-icon" href="icon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="icon.png">
   <link rel="apple-touch-icon" sizes="512x512" href="icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Study Tech Dino">
+  <meta name="apple-mobile-web-app-title" content="Study Tech">
   <style>
     :root {
-      --dino-green: #4CAF50;
-      --dino-blue: #2196F3;
-      --dino-yellow: #FFEB3B;
-      --dino-orange: #FF9800;
-      --dino-purple: #9C27B0;
-      --light-bg: #F0F8FF;
-      --card-bg: #FFFFFF;
-      --shadow: 0 8px 24px rgba(76, 175, 80, 0.18);
+      --primary: #8B0000;
+      --accent: #A52A2A;
+      --text: #1A1A1A;
+      --text-secondary: #444;
+      --bg: #F9F9F9;
+      --card: #FFFFFF;
+      --border: #E0E0E0;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 8px 24px rgba(139,0,0,0.12);
     }
 
     * { box-sizing: border-box; }
@@ -31,125 +32,156 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: var(--light-bg);
-      color: #222;
-      line-height: 1.7;
-      font-size: 18px;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 17px;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     header {
-      background: linear-gradient(135deg, #4CAF50, #2196F3);
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
       color: white;
       text-align: center;
-      padding: 2.5rem 1.2rem;
-      box-shadow: 0 6px 20px rgba(33, 150, 243, 0.25);
+      padding: 3rem 1.5rem 2.5rem;
+      box-shadow: var(--shadow-md);
       position: relative;
     }
 
-    .dino-header {
-      font-size: 4.2rem;
-      margin: 0 0 0.8rem;
-      line-height: 1;
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 12px;
+      background: linear-gradient(transparent, var(--bg));
     }
 
     h1 {
       margin: 0;
-      font-size: 2.8rem;
+      font-size: 2.9rem;
       font-weight: 700;
+      letter-spacing: -0.5px;
     }
 
     .subtitle {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       margin: 0.6rem 0 0;
-      opacity: 0.95;
+      opacity: 0.92;
+      font-weight: 400;
     }
 
     .container {
-      max-width: 920px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 1.6rem 1.2rem 3rem;
+      padding: 1.5rem 1.2rem 3rem;
     }
 
     h2 {
-      color: var(--dino-green);
+      color: var(--primary);
       font-size: 2.2rem;
       font-weight: 700;
-      margin: 2.5rem 0 1.2rem;
-      text-align: center;
+      margin: 2.8rem 0 1.4rem;
+      letter-spacing: -0.3px;
     }
 
-    h3 { color: var(--dino-orange); font-size: 1.8rem; margin: 2rem 0 1rem; }
+    h3 {
+      color: var(--accent);
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin: 2.2rem 0 1.2rem;
+    }
+
+    .section-intro {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
 
     .barrier-btn {
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 100%;
-      padding: 1.4rem 1.5rem;
-      margin: 1.2rem 0;
-      background: white;
-      color: #222;
+      padding: 1.4rem 1.6rem;
+      margin: 1rem 0;
+      background: var(--card);
+      color: var(--text);
       border: none;
-      border-radius: 20px;
-      font-size: 1.4rem;
+      border-radius: 16px;
+      font-size: 1.38rem;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: var(--shadow);
-      transition: all 0.3s ease;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .barrier-btn:hover {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 12px 30px rgba(76, 175, 80, 0.25);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .barrier-btn:active {
+      transform: scale(0.98);
     }
 
     .btn-left {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 1rem;
     }
 
-    .dino-icon {
-      font-size: 2.4rem;
-      width: 45px;
+    .icon-placeholder {
+      width: 42px;
+      height: 42px;
+      background: rgba(139,0,0,0.08);
+      border-radius: 10px;
       flex-shrink: 0;
     }
 
-    .chevron { font-size: 2.6rem; color: #888; font-weight: 300; }
+    .chevron {
+      font-size: 2.2rem;
+      color: #AAA;
+      font-weight: 300;
+    }
 
     .page {
       display: none;
-      background: var(--card-bg);
-      margin: 1.2rem 0;
-      padding: 2rem 1.6rem 3rem;
-      border-radius: 24px;
-      box-shadow: var(--shadow);
+      background: var(--card);
+      margin: 1rem 0 2rem;
+      padding: 2.2rem 1.8rem 3rem;
+      border-radius: 20px;
+      box-shadow: var(--shadow-md);
     }
 
     .back-btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: var(--dino-blue);
-      color: white;
-      border: none;
-      padding: 1rem 1.8rem;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      padding: 0.9rem 1.8rem;
       border-radius: 999px;
-      font-size: 1.25rem;
+      font-size: 1.22rem;
       font-weight: 600;
-      margin: 1rem 0 2rem;
+      margin-bottom: 2rem;
       cursor: pointer;
-      transition: all 0.25s;
+      transition: all 0.25s ease;
     }
 
-    .back-btn:hover { background: #1976D2; transform: scale(1.05); }
+    .back-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
 
     #dict-section {
-      background: var(--card-bg);
-      border-radius: 24px;
-      padding: 2rem 1.6rem;
-      box-shadow: var(--shadow);
+      background: var(--card);
+      border-radius: 20px;
+      padding: 2.2rem 1.8rem;
+      box-shadow: var(--shadow-md);
       margin-top: 2.5rem;
     }
 
@@ -160,17 +192,17 @@
 
     #word-input {
       width: 100%;
-      padding: 1.3rem 4rem 1.3rem 1.4rem;
+      padding: 1.3rem 4.2rem 1.3rem 1.5rem;
       font-size: 1.35rem;
-      border: 3px solid #DDD;
-      border-radius: 18px;
-      transition: border 0.25s;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      transition: all 0.25s;
     }
 
     #word-input:focus {
       outline: none;
-      border-color: var(--dino-green);
-      box-shadow: 0 0 0 5px rgba(76,175,80,0.15);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(139,0,0,0.1);
     }
 
     .clear-btn {
@@ -178,57 +210,96 @@
       right: 1.2rem;
       top: 50%;
       transform: translateY(-50%);
-      background: #EEE;
+      background: transparent;
       border: none;
-      font-size: 2rem;
-      color: #666;
+      font-size: 1.9rem;
+      color: #888;
       cursor: pointer;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+      width: 38px;
+      height: 38px;
       display: none;
       align-items: center;
       justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s;
     }
 
-    .clear-btn:hover { background: #DDD; color: var(--dino-green); }
+    .clear-btn:hover {
+      color: var(--primary);
+      background: rgba(139,0,0,0.08);
+    }
 
     #level-select {
       width: 100%;
-      padding: 1.2rem;
-      font-size: 1.25rem;
-      border: 3px solid #DDD;
-      border-radius: 18px;
+      padding: 1.2rem 1.4rem;
+      font-size: 1.28rem;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      background: white;
       margin-bottom: 1.4rem;
     }
 
     #search-btn {
       width: 100%;
-      background: var(--dino-green);
+      background: var(--primary);
       color: white;
       border: none;
       padding: 1.4rem;
-      border-radius: 18px;
-      font-size: 1.35rem;
+      border-radius: 14px;
+      font-size: 1.32rem;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 5px 15px rgba(76,175,80,0.3);
-      transition: all 0.25s;
+      box-shadow: 0 4px 14px rgba(139,0,0,0.22);
+      transition: all 0.25s ease;
     }
 
-    #search-btn:hover { background: #43A047; transform: translateY(-3px); }
+    #search-btn:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
 
-    #result { margin-top: 2rem; font-size: 1.1rem; }
+    #result {
+      margin-top: 2.2rem;
+    }
+
+    .dict-word {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin: 0 0 0.4rem;
+      color: var(--text);
+    }
+
+    .phonetic {
+      color: var(--text-secondary);
+      font-size: 1.3rem;
+    }
 
     .pos {
-      background: var(--dino-purple);
-      color: white;
-      padding: 6px 18px;
-      border-radius: 999px;
-      display: inline-block;
-      margin: 1.4rem 0 0.8rem;
-      font-size: 1.3rem;
-      font-weight: 600;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: capitalize;
+      font-size: 1.45rem;
+      margin: 1.8rem 0 0.8rem;
+      display: block;
+    }
+
+    .def-item {
+      margin: 1.1rem 0;
+      font-size: 1.12rem;
+    }
+
+    .example {
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    .origin {
+      background: #FFF8F8;
+      border-left: 4px solid var(--primary);
+      padding: 1.2rem 1.5rem;
+      margin: 1.8rem 0;
+      border-radius: 8px;
+      font-size: 1.08rem;
     }
 
     .video-container {
@@ -236,72 +307,78 @@
       padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
-      margin: 2rem 0;
-      border-radius: 20px;
-      box-shadow: var(--shadow);
+      margin: 2.2rem 0;
+      border-radius: 16px;
+      box-shadow: var(--shadow-md);
     }
 
     .video-container iframe {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-    }
-
-    ol, ul { padding-left: 2.2rem; margin: 1.4rem 0; }
-    li { margin-bottom: 1.2rem; font-size: 1.12rem; }
-    strong { color: var(--dino-green); }
-
-    .dino-illustration {
+      top: 0;
+      left: 0;
       width: 100%;
-      max-height: 220px;
-      object-fit: contain;
-      margin: 1.5rem auto;
-      display: block;
-      border-radius: 16px;
+      height: 100%;
     }
 
-    .section-illustration {
+    ol, ul {
+      padding-left: 1.8rem;
+      margin: 1.4rem 0;
+    }
+
+    li {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    strong {
+      color: var(--primary);
+    }
+
+    .footer-note {
       text-align: center;
-      margin: 1.8rem 0;
+      color: #777;
+      font-size: 0.98rem;
+      margin: 4rem 0 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid #EEE;
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="dino-header">🦖📚</div>
-    <h1>Study Tech Dino Adventure!</h1>
-    <p class="subtitle">Roar into learning with fun dinosaur friends! 🦕✨</p>
+    <h1>Study Tech</h1>
+    <p class="subtitle">Master Learning with Proven Study Technology</p>
   </header>
 
   <div class="container">
     <div id="main-content">
       <section>
         <h2>The Study Barriers</h2>
-        <p>Tap each barrier to learn more about what can block effective study.</p>
+        <p class="section-intro">Tap each barrier to learn more about what can block effective study.</p>
         <button class="barrier-btn" onclick="showPage('intro')">
           <div class="btn-left">
-            <span class="dino-icon">🦕</span>
+            <div class="icon-placeholder"></div>
             <span>Intro: The Barriers to Study</span>
           </div>
           <span class="chevron">›</span>
         </button>
         <button class="barrier-btn" onclick="showPage('mass')">
           <div class="btn-left">
-            <span class="dino-icon">🦖</span>
+            <div class="icon-placeholder"></div>
             <span>1. Absence of Mass</span>
           </div>
           <span class="chevron">›</span>
         </button>
         <button class="barrier-btn" onclick="showPage('gradient')">
           <div class="btn-left">
-            <span class="dino-icon">📈🦕</span>
+            <div class="icon-placeholder"></div>
             <span>2. Skipped Gradient</span>
           </div>
           <span class="chevron">›</span>
         </button>
         <button class="barrier-btn" onclick="showPage('word')">
           <div class="btn-left">
-            <span class="dino-icon">🔤🦖</span>
+            <div class="icon-placeholder"></div>
             <span>3. Misunderstood Word</span>
           </div>
           <span class="chevron">›</span>
@@ -312,21 +389,21 @@
         <h2>Word Clearing</h2>
         <button class="barrier-btn" onclick="showPage('why-clear')">
           <div class="btn-left">
-            <span class="dino-icon">❓🦕</span>
+            <div class="icon-placeholder"></div>
             <span>Why Clear Your Words?</span>
           </div>
           <span class="chevron">›</span>
         </button>
         <button class="barrier-btn" onclick="showPage('how-to-clear')">
           <div class="btn-left">
-            <span class="dino-icon">📋🦖</span>
+            <div class="icon-placeholder"></div>
             <span>How to Clear a Word</span>
           </div>
           <span class="chevron">›</span>
         </button>
         <button class="barrier-btn" onclick="showPage('help-another')">
           <div class="btn-left">
-            <span class="dino-icon">👫🦕</span>
+            <div class="icon-placeholder"></div>
             <span>How to Help Another Clear Words</span>
           </div>
           <span class="chevron">›</span>
@@ -339,26 +416,24 @@
           <h3>Built-in Dictionary</h3>
           <p>Simple lookup: definitions + origin/derivation when available.</p>
 
-          <div class="section-illustration">
-            <img src="https://thumbs.dreamstime.com/b/cute-cartoon-dinosaur-characters-reading-fairy-tale-educational-story-books-joy-emotion-cute-cartoon-dinosaur-characters-366807690.jpg" alt="Cute dinosaurs reading books" class="dino-illustration">
-          </div>
-
           <select id="level-select">
             <option value="beginner">Beginner / Elementary Level</option>
             <option value="intermediate" selected>Intermediate</option>
             <option value="advanced">Advanced</option>
           </select>
+
           <div class="input-group">
-            <input type="text" id="word-input" placeholder="Enter a word (e.g., hello)" />
-            <button id="clear-btn" class="clear-btn">✕</button>
+            <input type="text" id="word-input" placeholder="Enter a word (e.g., epistemology)" />
+            <button id="clear-btn" class="clear-btn">×</button>
           </div>
+
           <button id="search-btn">Look Up</button>
           <div id="result"></div>
         </div>
       </section>
     </div>
 
-    <!-- Intro with video -->
+    <!-- Pages – all original content preserved exactly -->
     <div id="intro" class="page">
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
       <h2>THE BARRIERS TO STUDY</h2>
@@ -366,18 +441,12 @@
       <p>It has been discovered that there are three definite barriers which can block a person’s ability to study and thus his ability to be educated. These barriers actually produce physical and mental reactions.</p>
       <p>If one knows and understands what these barriers are and how to handle them, his ability to study and learn will be greatly increased.</p>
       <p>The Barriers to Study form the core basis of The Technology of Study®.</p>
-
-      <div class="section-illustration">
-        <img src="https://thumbs.dreamstime.com/b/adorable-cartoon-illustration-featuring-three-colorful-baby-dinosaurs-reading-books-against-cheerful-sky-background-perfect-422280803.jpg" alt="Baby dinos reading together" class="dino-illustration">
-      </div>
-
       <div class="video-container">
         <iframe src="https://www.youtube.com/embed/M-iQD2B7ZjE?start=110" title="Study Technology Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
     </div>
 
-    <!-- Absence of Mass -->
     <div id="mass" class="page">
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
       <h2>The First Barrier to Study: Absence of Mass</h2>
@@ -385,17 +454,9 @@
       <p>It would be difficult to understand how to use a computer for the first time if you did not have the computer there in front of you. In fact, lacking the object associated with a word can inhibit all understanding (I think we can agree here that attempting to study how an aircraft flies and the various parts of an aircraft, without ever seeing or touching an aircraft, or a reasonable mock-up of one, would make a successful study of it pretty much impossible).</p>
       <p>If the mass of a subject is absent, you can actually feel squashed. It can make you feel bent, sort of spinny, sort of dead, or bored. A person studying a subject without the objects related to that subject, will experience these and several other specific reactions.</p>
       <p>Knowing how to identify and handle these reactions is vital to a student's ability to grasp and use a subject - and more than vital to a teacher's ability to get a student to learn the subject.</p>
-
-      <div class="section-illustration">
-        <img src="https://thumbs.dreamstime.com/b/cute-dinosaur-listens-to-boy-girl-reading-book-together-classroom-dinosaur-students-studying-classroom-347164657.jpg" alt="Dino in classroom learning" class="dino-illustration">
-      </div>
-
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
     </div>
 
-    <!-- Add similar .section-illustration blocks with different images to other pages if you like -->
-
-    <!-- Skipped Gradient -->
     <div id="gradient" class="page">
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
       <h2>The Second Barrier to Study: Skipped Gradient</h2>
@@ -406,8 +467,6 @@
       <p>This is often referred to as “missed basic skills” or “insufficient basic skills.”</p>
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
     </div>
-
-    <!-- Misunderstood Word, Why Clear, How to Clear, Help Another – same structure, kept ALL original text exactly -->
 
     <div id="word" class="page">
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
@@ -492,6 +551,10 @@
     </div>
   </div>
 
+  <div class="footer-note">
+    Powered by L. Ron Hubbard’s Study Technology • Designed for focused, high-performance learning
+  </div>
+
   <script>
     let currentWord = '';
 
@@ -512,22 +575,20 @@
       if (!word) return;
       currentWord = word;
       const resultDiv = document.getElementById('result');
-      resultDiv.innerHTML = '<p>Loading...</p>';
+      resultDiv.innerHTML = '<p style="text-align:center; color:#777; padding:2.5rem 0;">Loading...</p>';
       const level = document.getElementById('level-select').value;
       try {
         const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
         if (!res.ok) throw new Error('Not found');
         const data = await res.json();
         const entry = data[0];
-        let html = `<h3>${entry.word}${entry.phonetic ? ` <small>(${entry.phonetic})</small>` : ''}</h3>`;
+        let html = `<h3 class="dict-word">${entry.word}${entry.phonetic ? ` <span class="phonetic">/${entry.phonetic}/</span>` : ''}</h3>`;
         if (entry.origin && entry.origin.trim()) {
-          html += `<p><strong>Derivation/Origin:</strong> ${entry.origin}</p>`;
-        } else {
-          html += `<p><em>Origin/derivation not available here</em></p>`;
+          html += `<div class="origin"><strong>Origin / Derivation:</strong><br>${entry.origin}</div>`;
         }
         entry.meanings.forEach(meaning => {
           const pos = meaning.partOfSpeech.charAt(0).toUpperCase() + meaning.partOfSpeech.slice(1);
-          html += `<p class="pos">${pos}</p>`;
+          html += `<div class="pos">${pos}</div>`;
           let defs = meaning.definitions;
           if (level === 'beginner') {
             defs = defs.filter(def => def.definition.length <= 60);
@@ -535,25 +596,27 @@
           } else if (level === 'intermediate') {
             defs = defs.filter(def => def.definition.length <= 120);
             if (defs.length > 3) defs = defs.slice(0, 3);
-          } // advanced: all
+          }
           defs.forEach((def, index) => {
-            html += `<p>${index + 1}. ${def.definition}`;
-            if (def.example) html += ` <em>(e.g., ${def.example})</em>`;
+            html += `<p class="def-item">${index + 1}. ${def.definition}`;
+            if (def.example) html += ` <span class="example">Example: ${def.example}</span>`;
             html += `</p>`;
           });
         });
         resultDiv.innerHTML = html;
       } catch (err) {
-        resultDiv.innerHTML = '<p style="color: #4CAF50;">Word not found or no connection. Try another!</p>';
+        resultDiv.innerHTML = '<p style="color:var(--primary); text-align:center; padding:2.5rem 0; font-size:1.15rem;">Word not found or offline.<br>Please check spelling and try again.</p>';
       }
     }
 
     document.getElementById('search-btn').addEventListener('click', lookupWord);
+    document.getElementById('word-input').addEventListener('keypress', e => {
+      if (e.key === 'Enter') lookupWord();
+    });
     document.getElementById('level-select').addEventListener('change', () => {
       if (currentWord) lookupWord();
     });
 
-    // Clear button logic
     const wordInput = document.getElementById('word-input');
     const clearBtn = document.getElementById('clear-btn');
     wordInput.addEventListener('input', () => {
