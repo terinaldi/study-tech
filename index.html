@@ -59,10 +59,7 @@
       background: linear-gradient(145deg, #6b0000 0%, #8B0000 50%, #a11212 100%);
       color: white;
       text-align: center;
-      padding: calc(1.6rem + env(safe-area-inset-top)) 1rem 1.4rem; /* much thinner header */
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      padding: calc(2.2rem + env(safe-area-inset-top)) 1.2rem 1.8rem;
       overflow: hidden;
       box-shadow: 0 6px 20px rgba(0,0,0,0.22);
     }
@@ -81,14 +78,14 @@
     .header-content {
       position: relative;
       z-index: 1;
-      padding-bottom: 0.3rem;
+      padding-bottom: 0.4rem;
     }
 
     h1 {
       margin: 0;
-      font-size: 2.4rem;
+      font-size: 2.8rem;
       font-weight: 800;
-      letter-spacing: -0.9px;
+      letter-spacing: -1px;
       line-height: 1.05;
       background: linear-gradient(90deg, #ffffff, #f0f0f0);
       -webkit-background-clip: text;
@@ -97,11 +94,11 @@
     }
 
     .subtitle {
-      margin: 0.5rem 0 0;
-      font-size: 1.05rem;
+      margin: 0.7rem 0 0;
+      font-size: 1.18rem;
       font-weight: 400;
       opacity: 0.92;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.35px;
       color: rgba(255,255,255,0.95);
       text-shadow: 0 1px 4px rgba(0,0,0,0.3);
       animation: subtleShine 6s ease-in-out infinite;
@@ -116,37 +113,37 @@
     .container {
       max-width: 960px;
       margin: 0 auto;
-      padding: 1.2rem 1rem calc(5rem + env(safe-area-inset-bottom));
+      padding: 1.4rem 1.2rem calc(5rem + env(safe-area-inset-bottom));
     }
 
     h2 {
       color: var(--primary);
-      font-size: 2.1rem;
+      font-size: 2.2rem;
       font-weight: 700;
-      margin: 2.5rem 0 1.2rem;
-      letter-spacing: -0.3px;
+      margin: 2.8rem 0 1.4rem;
+      letter-spacing: -0.35px;
     }
 
     h3 {
       color: var(--accent);
-      font-size: 1.7rem;
+      font-size: 1.75rem;
       font-weight: 650;
-      margin: 2rem 0 1rem;
-      letter-spacing: -0.15px;
+      margin: 2.2rem 0 1.2rem;
+      letter-spacing: -0.2px;
     }
 
     .section-intro,
     p,
     li {
-      font-size: 1.05rem;
+      font-size: 1.06rem;
       color: var(--text-secondary);
-      margin: 1.2rem 0;
+      margin: 1.25rem 0;
     }
 
     .page p,
     .page li {
-      font-size: 1.08rem;
-      line-height: 1.8;
+      font-size: 1.09rem;
+      line-height: 1.82;
     }
 
     .barrier-btn {
@@ -154,13 +151,13 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
-      padding: 1.3rem 1.5rem;
-      margin: 1rem 0;
+      padding: 1.35rem 1.6rem;
+      margin: 1.05rem 0;
       background: var(--card);
       color: var(--text);
       border: none;
-      border-radius: 16px;
-      font-size: 1.35rem;
+      border-radius: 17px;
+      font-size: 1.38rem;
       font-weight: 600;
       cursor: pointer;
       box-shadow: var(--shadow-sm);
@@ -175,19 +172,19 @@
     .btn-left {
       display: flex;
       align-items: center;
-      gap: 1.1rem;
+      gap: 1.2rem;
     }
 
     .btn-icon {
-      font-size: 1.8rem;
+      font-size: 1.85rem;
       color: var(--primary);
-      width: 40px;
+      width: 42px;
       text-align: center;
       flex-shrink: 0;
     }
 
     .chevron {
-      font-size: 2.3rem;
+      font-size: 2.4rem;
       color: #B0B0B0;
       font-weight: 300;
       line-height: 1;
@@ -196,43 +193,43 @@
     .page {
       display: none;
       background: var(--card);
-      margin: 1rem 0 2rem;
-      padding: 2rem 1.6rem calc(3.5rem + env(safe-area-inset-bottom));
-      border-radius: 20px;
+      margin: 1.1rem 0 2.3rem;
+      padding: 2.2rem 1.8rem calc(4rem + env(safe-area-inset-bottom));
+      border-radius: 21px;
       box-shadow: var(--shadow-md);
     }
 
     .mass-image-container {
-      margin: 1.2rem 0;
+      margin: 1.8rem 0;
       text-align: center;
     }
 
     .mass-image {
-      max-width: 60%;
+      max-width: 100%;                 /* full size again, as originally added */
       height: auto;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
       display: block;
       margin: 0 auto;
     }
 
     @media (max-width: 768px) {
       header {
-        padding: calc(1.4rem + env(safe-area-inset-top)) 1rem 1.8rem;
+        padding: calc(1.6rem + env(safe-area-inset-top)) 1rem 1.6rem;
       }
       h1 {
-        font-size: 2.1rem;
-        letter-spacing: -0.7px;
+        font-size: 2.3rem;
+        letter-spacing: -0.8px;
       }
       .subtitle {
-        font-size: 0.98rem;
-        margin-top: 0.4rem;
-      }
-      .mass-image {
-        max-width: 85%; /* bigger on phone */
+        font-size: 1.05rem;
+        margin-top: 0.5rem;
       }
       .container {
-        padding: 1rem 0.9rem calc(5rem + env(safe-area-inset-bottom));
+        padding: 1.1rem 1rem calc(5rem + env(safe-area-inset-bottom));
+      }
+      .mass-image {
+        max-width: 100%;               /* full width on phone too */
       }
     }
 
@@ -243,11 +240,11 @@
       background: transparent;
       color: var(--primary);
       border: 2px solid var(--primary);
-      padding: 0.9rem 1.8rem;
+      padding: 0.95rem 1.9rem;
       border-radius: 999px;
-      font-size: 1.22rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      margin-bottom: 2rem;
+      margin-bottom: 2.1rem;
       cursor: pointer;
       transition: all 0.25s ease;
     }
@@ -259,23 +256,23 @@
 
     #dict-section {
       background: var(--card);
-      border-radius: 20px;
-      padding: 2rem 1.6rem;
+      border-radius: 21px;
+      padding: 2.2rem 1.8rem;
       box-shadow: var(--shadow-md);
-      margin-top: 2.5rem;
+      margin-top: 2.6rem;
     }
 
     .input-group {
       position: relative;
-      margin: 1.4rem 0;
+      margin: 1.5rem 0;
     }
 
     #word-input {
       width: 100%;
-      padding: 1.3rem 4.2rem 1.3rem 1.5rem;
-      font-size: 1.35rem;
+      padding: 1.35rem 4.3rem 1.35rem 1.55rem;
+      font-size: 1.36rem;
       border: 2px solid var(--border);
-      border-radius: 14px;
+      border-radius: 15px;
       transition: all 0.25s;
     }
 
@@ -287,16 +284,16 @@
 
     .clear-btn {
       position: absolute;
-      right: 1.2rem;
+      right: 1.25rem;
       top: 50%;
       transform: translateY(-50%);
       background: transparent;
       border: none;
-      font-size: 2rem;
+      font-size: 2.05rem;
       color: #888;
       cursor: pointer;
-      width: 40px;
-      height: 40px;
+      width: 41px;
+      height: 41px;
       display: none;
       align-items: center;
       justify-content: center;
@@ -311,12 +308,12 @@
 
     #level-select {
       width: 100%;
-      padding: 1.2rem 1.4rem;
-      font-size: 1.28rem;
+      padding: 1.25rem 1.45rem;
+      font-size: 1.3rem;
       border: 2px solid var(--border);
-      border-radius: 14px;
+      border-radius: 15px;
       background: white;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.5rem;
     }
 
     #search-btn {
@@ -324,12 +321,12 @@
       background: var(--primary);
       color: white;
       border: none;
-      padding: 1.35rem;
-      border-radius: 14px;
-      font-size: 1.32rem;
+      padding: 1.4rem;
+      border-radius: 15px;
+      font-size: 1.34rem;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 5px 15px rgba(139,0,0,0.2);
+      box-shadow: 0 5px 16px rgba(139,0,0,0.2);
       transition: all 0.25s ease;
     }
 
@@ -339,12 +336,12 @@
     }
 
     #result {
-      margin-top: 2.2rem;
-      padding-bottom: 3rem;
+      margin-top: 2.3rem;
+      padding-bottom: 3.2rem;
     }
 
     .dict-word {
-      font-size: 2.4rem;
+      font-size: 2.5rem;
       font-weight: 700;
       margin: 0 0 0.5rem;
       color: var(--text);
@@ -352,21 +349,21 @@
 
     .phonetic {
       color: var(--text-secondary);
-      font-size: 1.3rem;
+      font-size: 1.32rem;
     }
 
     .pos {
       font-weight: 700;
       color: var(--primary);
       text-transform: capitalize;
-      font-size: 1.45rem;
-      margin: 1.8rem 0 0.8rem;
+      font-size: 1.5rem;
+      margin: 1.9rem 0 0.9rem;
       display: block;
     }
 
     .def-item {
-      margin: 1.2rem 0;
-      font-size: 1.12rem;
+      margin: 1.25rem 0;
+      font-size: 1.13rem;
     }
 
     .example {
@@ -377,10 +374,10 @@
     .origin {
       background: #FFF8F8;
       border-left: 5px solid var(--primary);
-      padding: 1.2rem 1.5rem;
-      margin: 1.8rem 0;
+      padding: 1.25rem 1.55rem;
+      margin: 1.9rem 0;
       border-radius: 10px;
-      font-size: 1.05rem;
+      font-size: 1.07rem;
     }
 
     .video-container {
@@ -388,8 +385,8 @@
       padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
-      margin: 2.2rem 0;
-      border-radius: 16px;
+      margin: 2.3rem 0;
+      border-radius: 17px;
       box-shadow: var(--shadow-md);
     }
 
@@ -402,13 +399,13 @@
     }
 
     ol, ul {
-      padding-left: 1.8rem;
-      margin: 1.4rem 0;
+      padding-left: 1.9rem;
+      margin: 1.5rem 0;
     }
 
     li {
-      margin-bottom: 1rem;
-      font-size: 1.08rem;
+      margin-bottom: 1.1rem;
+      font-size: 1.09rem;
     }
 
     strong {
@@ -419,9 +416,9 @@
     .footer-note {
       text-align: center;
       color: #666;
-      font-size: 0.95rem;
-      margin: 4.5rem 0 calc(5rem + env(safe-area-inset-bottom));
-      padding-top: 2rem;
+      font-size: 0.96rem;
+      margin: 4.8rem 0 calc(5.2rem + env(safe-area-inset-bottom));
+      padding-top: 2.2rem;
       border-top: 1px solid #EEE;
     }
   </style>
@@ -552,8 +549,98 @@
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
     </div>
 
-    <!-- The other pages are unchanged in this snippet for brevity, but keep them as in your previous version -->
+    <div id="gradient" class="page">
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+      <h2>The Second Barrier to Study: Skipped Gradient</h2>
+      <p>A gradient is a way of learning or doing something step by step. A gradient can be easy where each step can be done easily, or it can be hard where each step is difficult to do.</p>
+      <p>Too steep a gradient consists of not having mastered prior skills before going on to more complicated or detailed steps.</p>
+      <p>A student who has skipped a gradient may feel a sort of confusion or a feeling of reeling (i.e., moving or swaying like you might fall).</p>
+      <p>These are two reactions a person can experience when they have missed a step or hit too steep a gradient in the subject they’re studying.</p>
+      <p>This is often referred to as “missed basic skills” or “insufficient basic skills.”</p>
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+    </div>
 
+    <div id="word" class="page">
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+      <h2>The Third Barrier to Study: Misunderstood Word</h2>
+      <p>The third and most important barrier is the misunderstood word.</p>
+      <p>“Mis” means not or wrongly. “Misunderstood” means not understood or wrongly understood. A misunderstood word is a word which is not understood or a word which is wrongly understood.</p>
+      <p>Have you ever been reading a book or a report, gotten to the end of the page and couldn’t remember what you read? Therein lies the phenomena of the misunderstood word—all becomes distinctly blank beyond a word not understood or wrongly understood.</p>
+      <p>It can make you feel blank or washed out. It can make you feel “not there” and a sort of a nervous upset feeling can follow after that.</p>
+      <p>The matter is far more critical than one might surmise and of the three barriers it is the misunderstood that bears most upon human relations, the mind and understanding.</p>
+      <p>It is the misunderstood word that establishes aptitude—or lack of it.</p>
+      <p>It produces a vast panorama of reactions and is the prime factor involved with stupidity. It also determines whether or not one can actually perform a learned skill, and to what degree of proficiency. All of these are the result of one or more words or symbols not understood or wrongly understood.</p>
+      <p>The misunderstood word can stop a student in his tracks completely. Knowing how to determine when there is a misunderstood word or symbol, how to find it and how to handle it are critical to the success of any student.</p>
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+    </div>
+
+    <div id="why-clear" class="page">
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+      <h2>Why Clear Your Words?</h2>
+      <p>Basic Word Clearing is the method of finding a misunderstood word by looking earlier in the text than where you are having trouble.</p>
+      <p>When studying something, it is important to know how to keep yourself moving along and doing well. To be a successful student, you should look up each word you come to that you don’t understand. Never leave a word behind you that you don’t know the meaning of.</p>
+      <p>But if you ever run into trouble while studying, you would use Basic Word Clearing to help you find and handle the misunderstood word that stopped your successful study progress. Anyone helping you with your studies would use this method and you can also use it to help anyone else.</p>
+      <p>As soon as you slow down or you don’t feel quite as “bright” as you did fifteen minutes ago, that is the time to use Basic Word Clearing and look for the misunderstood word.</p>
+      <p>Don’t wait until you start feeling half asleep or are actually falling asleep while studying something. That is waiting far too long to find and clear the misunderstood word. You went past a word you did not fully understand long before you started to feel sleepy.</p>
+      <p>If you have ever seen another person falling asleep while reading a book, then you have seen what happens well after the person went blank from passing a misunderstood word.</p>
+      <p>And remember that it is not a group of words or an idea that was misunderstood; it is a misunderstood word. Going past a misunderstood word is always what happens first. It’s what happens before a whole subject is misunderstood.</p>
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+    </div>
+
+    <div id="how-to-clear" class="page">
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+      <h2>How to Clear a Word</h2>
+      <p>Basic Word Clearing is done as follows:</p>
+      <ol>
+        <li>You realize that you are not moving along on your studies as fast as you were or that you are not as bright as you were earlier. It might also be one of the following:
+          <ul>
+            <li>You are just not as interested in what you are studying.</li>
+            <li>You are taking too long to get through something.</li>
+            <li>You might be yawning.</li>
+            <li>You might be doodling (scribbling or making patterns or designs with a pen or pencil).</li>
+            <li>You might be daydreaming, etc.</li>
+          </ul>
+        </li>
+        <li>As soon as this happens, you must stop and look earlier in what you were studying and find the misunderstood word. There will always be one there and you must find it. There are no exceptions. It may be that the misunderstood word is two pages or more before the place where you stopped studying. But it is always earlier in the text than where you are now.</li>
+        <li>You find the word. You may recognize it while looking back for it, but if you can’t find it, you or the person helping you with your study can pick out words from what you were reading that could be the misunderstood word. Someone helping you can ask, “What does ______ mean?” to see if you give the correct definition.</li>
+        <li>When you have found the misunderstood word, you look it up in a dictionary and clear it per the Steps to Clear a Word section of this course. You look up and clear the definition that fits the context. You use it in sentences that you make up, until you fully understand it. Then you clear each of the listed definitions and use each of them several times in sentences until you fully understand the word. You then clear the derivation and any idioms or synonyms, etc.</li>
+        <li>Now that you have a full understanding of the word, you go back to what you were reading and once again read the part that contained the misunderstood word. If you are still not “bright,” wanting to get on with it and feeling happier about it, then there is another misunderstood word earlier in the text. You must find it and clear it by repeating steps 2 to 5 above.</li>
+        <li>When you feel bright and enthusiastic again, that is the end result of Basic Word Clearing. (The result won’t be achieved if a word you did not understand was missed or if there is an earlier misunderstood word in the text. If this happens, repeat steps 2 to 5.) If you are now enthusiastic, continue studying the text from where the misunderstood was found and cleared.</li>
+      </ol>
+      <p><strong>In summary, the steps of Basic Word Clearing are as follows:</strong></p>
+      <ul>
+        <li>a. Find out where you weren’t having any trouble.</li>
+        <li>b. Find out where you are now having trouble.</li>
+        <li>c. The misunderstood word will be right at the end of where you weren’t having trouble. It will be right in that immediate area. You can pinpoint it.</li>
+      </ul>
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+    </div>
+
+    <div id="help-another" class="page">
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+      <h2>How to Help Another Clear Words</h2>
+      <h3>Simple Reading Aloud Word Clearing</h3>
+      <p>Whenever you are assisting children, people who speak a foreign language or someone who is not able to read or write well, you can use Simple Reading Aloud Word Clearing to help them.</p>
+      <p>The person is made to read aloud so you can find out what he is doing. The most surprising things can happen, such as the following:</p>
+      <ul>
+        <li>a. The person can leave out a word completely.</li>
+        <li>b. He can change a word to say something else.</li>
+        <li>c. He can hesitate when he sees certain words.</li>
+      </ul>
+      <p>Simple Reading Aloud Word Clearing is done following the steps listed below. You and the person who will be reading both have a copy of the same book or text in front of you.</p>
+      <p>When you are working with another person and doing the steps of Simple Reading Aloud Word Clearing on that person, you are called the “word clearer” because you are helping him to find and clear his misunderstood words. The person who is reading the text aloud and receiving Word Clearing is referred to as the “student.”</p>
+      <p><strong>PROCEDURE</strong></p>
+      <ol>
+        <li>You tell the student to read the text aloud while you follow along, reading the copy of the material in front of you.</li>
+        <li>Each time he leaves out or changes a word or hesitates or frowns as he reads a word, take it up at once.</li>
+        <li>Correct it by looking up the word he left out or changed or hesitated or frowned while reading. Find the definition for him in a dictionary or explain it to him.</li>
+        <li>When you have cleared up the meaning of the word, get the student to go back to the book or material and carry on reading and note the next time he leaves out or changes a word or hesitates or frowns.</li>
+      </ol>
+      <p>Each time this happens, you repeat steps 2 to 4 above.</p>
+      <p>By doing Simple Reading Aloud Word Clearing, you can help someone who is moving along slowly while studying and also help the person to improve his ability to read.</p>
+      <p>After doing Simple Reading Aloud Word Clearing, the person’s next step would be to learn how to use a dictionary to look up and clear the meaning of words himself as he goes along.</p>
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+    </div>
   </div>
 
   <div class="footer-note">
@@ -561,7 +648,6 @@
   </div>
 
   <script>
-    // Your existing script remains unchanged
     let currentWord = '';
 
     function showPage(pageId) {
