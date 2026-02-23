@@ -16,8 +16,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     :root {
-      --primary: #1e40af;          /* deep, modern blue */
-      --accent: #3b82f6;           /* vibrant blue highlight */
+      --primary: #1e40af;          /* deep modern blue */
+      --accent: #3b82f6;           /* vibrant blue for highlights */
       --text: #111827;
       --text-light: #ffffff;
       --text-secondary: #4b5563;
@@ -79,7 +79,8 @@
       margin: 0.45rem 0 0;
       font-size: 1.05rem;
       font-weight: 400;
-      opacity: 1;                /* full white – no grey */
+      color: #ffffff;               /* pure white – way brighter, fully readable */
+      opacity: 1;
       letter-spacing: 0.2px;
     }
 
@@ -286,15 +287,15 @@
       background: transparent;
       border: none;
       color: var(--accent);
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       cursor: pointer;
-      padding: 0.4rem;
+      padding: 0.5rem;
       border-radius: 50%;
       transition: all 0.2s;
     }
 
     .audio-btn:hover {
-      background: rgba(59,130,246,0.1);
+      background: rgba(59,130,246,0.12);
     }
 
     .pos {
@@ -428,7 +429,7 @@
         <h2>Study Tools</h2>
         <div id="dict-section">
           <h3>Built-in Dictionary</h3>
-          <p>Simple lookup: definitions + origin/derivation when available.</p>
+          <p>Simple lookup: definitions + origin/derivation + audio pronunciation when available.</p>
 
           <select id="level-select">
             <option value="beginner">Beginner / Elementary Level</option>
@@ -607,19 +608,21 @@
 
         let html = `<h3 class="dict-word">${entry.word}</h3>`;
 
+        // Pronunciation audio – show icon if audio exists
         if (entry.phonetics && entry.phonetics.length > 0) {
-          const phonetic = entry.phonetics.find(p => p.text && p.audio) || entry.phonetics[0];
-          if (phonetic) {
+          const phoneticWithAudio = entry.phonetics.find(p => p.audio && p.audio.trim() !== '');
+          if (phoneticWithAudio) {
+            const audioId = `audio-${word.replace(/\W/g, '')}`;
             html += `
               <div class="phonetic-wrapper">
-                <span class="phonetic">${phonetic.text || ''}</span>
-                ${phonetic.audio ? `
-                  <button class="audio-btn" onclick="playAudio('${phonetic.audio}')">
-                    <i class="fa-solid fa-volume-high"></i>
-                  </button>
-                  <audio id="audio-${word}" src="${phonetic.audio}"></audio>
-                ` : ''}
+                <span class="phonetic">${entry.phonetic || phoneticWithAudio.text || ''}</span>
+                <button class="audio-btn" onclick="document.getElementById('${audioId}').play()">
+                  <i class="fa-solid fa-volume-high"></i>
+                </button>
+                <audio id="${audioId}" src="${phoneticWithAudio.audio}"></audio>
               </div>`;
+          } else {
+            html += `<div class="phonetic">${entry.phonetic || ''}</div>`;
           }
         }
 
@@ -649,11 +652,6 @@
       } catch (err) {
         resultDiv.innerHTML = '<p style="color:var(--primary); text-align:center; padding:2.5rem 0; font-size:1.15rem;">Word not found or offline.<br>Please check spelling and try again.</p>';
       }
-    }
-
-    function playAudio(url) {
-      const audio = new Audio(url);
-      audio.play().catch(e => console.log("Audio play failed:", e));
     }
 
     document.getElementById('search-btn').addEventListener('click', lookupWord);
