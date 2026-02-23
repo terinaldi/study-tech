@@ -59,7 +59,7 @@
       background: linear-gradient(145deg, #6b0000 0%, #8B0000 50%, #a11212 100%);
       color: white;
       text-align: center;
-      padding: calc(2.8rem + env(safe-area-inset-top)) 1.2rem 2.2rem;
+      padding: calc(2.8rem + env(safe-area-inset-top)) 1.2rem 3rem; /* increased bottom padding */
       position: sticky;
       top: 0;
       z-index: 100;
@@ -81,6 +81,7 @@
     .header-content {
       position: relative;
       z-index: 1;
+      padding-bottom: 0.4rem; /* extra buffer so descenders aren't clipped */
     }
 
     h1 {
@@ -88,7 +89,7 @@
       font-size: 3.1rem;
       font-weight: 800;
       letter-spacing: -1.1px;
-      line-height: 1;
+      line-height: 1.05;          /* increased from 1 → gives room for bottom of letters */
       background: linear-gradient(90deg, #ffffff, #f0f0f0);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -207,7 +208,7 @@
     }
 
     .mass-image {
-      max-width: 60%;                /* half-ish size — adjust to 50% or 70% if needed */
+      max-width: 60%;
       height: auto;
       border-radius: 12px;
       box-shadow: 0 6px 18px rgba(0,0,0,0.12);
@@ -405,9 +406,13 @@
     }
 
     @media (max-width: 480px) {
-      h1 { font-size: 2.6rem; letter-spacing: -0.9px; }
+      h1 { 
+        font-size: 2.5rem;          /* smaller on mobile to avoid clipping */
+        letter-spacing: -0.8px;
+        line-height: 1.08;
+      }
       .subtitle { font-size: 1.15rem; }
-      .mass-image { max-width: 70%; } /* slightly larger on small screens if needed */
+      .mass-image { max-width: 70%; }
     }
   </style>
 </head>
@@ -502,7 +507,7 @@
       </section>
     </div>
 
-    <!-- Pages -->
+    <!-- Pages remain unchanged except the mass page with smaller images -->
     <div id="intro" class="page">
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
       <h2>THE BARRIERS TO STUDY</h2>
@@ -536,6 +541,8 @@
       
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
     </div>
+
+    <!-- remaining pages unchanged -->
 
     <div id="gradient" class="page">
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
