@@ -1,338 +1,649 @@
-<style>
-  :root {
-    --primary: #8B0000;
-    --accent: #A52A2A;
-    --text: #0F0F0F;                /* darker, but not harsh black */
-    --text-secondary: #3C3C3C;
-    --bg: #FAFAFA;
-    --card: #FFFFFF;
-    --border: #E2E2E2;
-    --shadow-sm: 0 2px 10px rgba(0,0,0,0.07);
-    --shadow-md: 0 8px 28px rgba(139,0,0,0.11);
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Study Tech</title>
+  <link rel="manifest" href="manifest.json"/>
+  <meta name="theme-color" content="#8B0000"/>
+  <!-- iOS support -->
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icon.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Study Tech">
+  <!-- Font Awesome 6 Free CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --primary: #8B0000;
+      --accent: #A52A2A;
+      --text: #0F0F0F;
+      --text-secondary: #3C3C3C;
+      --bg: #FAFAFA;
+      --card: #FFFFFF;
+      --border: #E2E2E2;
+      --shadow-sm: 0 2px 10px rgba(0,0,0,0.07);
+      --shadow-md: 0 8px 28px rgba(139,0,0,0.11);
+    }
 
-  * { box-sizing: border-box; }
+    * { box-sizing: border-box; }
 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", system-ui, Roboto, Helvetica, Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.78;
-    font-size: 18px;
-    font-weight: 400;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", system-ui, Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.78;
+      font-size: 18px;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-  header {
-    background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-    color: white;
-    text-align: center;
-    padding: 3.2rem 1.5rem 2.6rem;
-    box-shadow: var(--shadow-md);
-    position: relative;
-  }
+    header {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      color: white;
+      text-align: center;
+      padding: 3.2rem 1.5rem 2.6rem;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
 
-  header::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 14px;
-    background: linear-gradient(transparent, var(--bg));
-  }
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 14px;
+      background: linear-gradient(transparent, var(--bg));
+    }
 
-  h1 {
-    margin: 0;
-    font-size: 3rem;
-    font-weight: 700;
-    letter-spacing: -0.6px;
-  }
+    h1 {
+      margin: 0;
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -0.6px;
+    }
 
-  .subtitle {
-    font-size: 1.3rem;
-    margin: 0.7rem 0 0;
-    opacity: 0.94;
-    font-weight: 400;
-  }
+    .subtitle {
+      font-size: 1.3rem;
+      margin: 0.7rem 0 0;
+      opacity: 0.94;
+      font-weight: 400;
+    }
 
-  .container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 1.6rem 1.3rem 3.5rem;
-  }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.6rem 1.3rem 3.5rem;
+    }
 
-  h2 {
-    color: var(--primary);
-    font-size: 2.35rem;
-    font-weight: 700;
-    margin: 3rem 0 1.5rem;
-    letter-spacing: -0.4px;
-  }
+    h2 {
+      color: var(--primary);
+      font-size: 2.35rem;
+      font-weight: 700;
+      margin: 3rem 0 1.5rem;
+      letter-spacing: -0.4px;
+    }
 
-  h3 {
-    color: var(--accent);
-    font-size: 1.85rem;
-    font-weight: 650;
-    margin: 2.4rem 0 1.3rem;
-    letter-spacing: -0.2px;
-  }
+    h3 {
+      color: var(--accent);
+      font-size: 1.85rem;
+      font-weight: 650;
+      margin: 2.4rem 0 1.3rem;
+      letter-spacing: -0.2px;
+    }
 
-  .section-intro,
-  p,
-  li {
-    font-size: 1.08rem;           /* ~19–20px effective size */
-    color: var(--text-secondary);
-    margin: 1.3rem 0;
-  }
+    .section-intro,
+    p,
+    li {
+      font-size: 1.08rem;
+      color: var(--text-secondary);
+      margin: 1.3rem 0;
+    }
 
-  .page p,
-  .page li {
-    font-size: 1.1rem;
-    line-height: 1.82;
-  }
+    .page p,
+    .page li {
+      font-size: 1.1rem;
+      line-height: 1.82;
+    }
 
-  .barrier-btn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 1.45rem 1.7rem;
-    margin: 1.1rem 0;
-    background: var(--card);
-    color: var(--text);
-    border: none;
-    border-radius: 18px;
-    font-size: 1.42rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+    .barrier-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 1.45rem 1.7rem;
+      margin: 1.1rem 0;
+      background: var(--card);
+      color: var(--text);
+      border: none;
+      border-radius: 18px;
+      font-size: 1.42rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-  .barrier-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
-  }
+    .barrier-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
 
-  .btn-left {
-    display: flex;
-    align-items: center;
-    gap: 1.3rem;
-  }
+    .btn-left {
+      display: flex;
+      align-items: center;
+      gap: 1.3rem;
+    }
 
-  .btn-icon {
-    font-size: 1.95rem;
-    color: var(--primary);
-    width: 44px;
-    text-align: center;
-    flex-shrink: 0;
-  }
+    .btn-icon {
+      font-size: 1.95rem;
+      color: var(--primary);
+      width: 44px;
+      text-align: center;
+      flex-shrink: 0;
+    }
 
-  .chevron {
-    font-size: 2.5rem;
-    color: #B0B0B0;
-    font-weight: 300;
-    line-height: 1;
-  }
+    .chevron {
+      font-size: 2.5rem;
+      color: #B0B0B0;
+      font-weight: 300;
+      line-height: 1;
+    }
 
-  .page {
-    display: none;
-    background: var(--card);
-    margin: 1.2rem 0 2.5rem;
-    padding: 2.4rem 2rem 3.5rem;
-    border-radius: 22px;
-    box-shadow: var(--shadow-md);
-  }
+    .page {
+      display: none;
+      background: var(--card);
+      margin: 1.2rem 0 2.5rem;
+      padding: 2.4rem 2rem 3.5rem;
+      border-radius: 22px;
+      box-shadow: var(--shadow-md);
+    }
 
-  .back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    background: transparent;
-    color: var(--primary);
-    border: 2px solid var(--primary);
-    padding: 1rem 2rem;
-    border-radius: 999px;
-    font-size: 1.28rem;
-    font-weight: 600;
-    margin-bottom: 2.2rem;
-    cursor: pointer;
-    transition: all 0.25s ease;
-  }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      padding: 1rem 2rem;
+      border-radius: 999px;
+      font-size: 1.28rem;
+      font-weight: 600;
+      margin-bottom: 2.2rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
 
-  .back-btn:hover {
-    background: var(--primary);
-    color: white;
-  }
+    .back-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
 
-  #dict-section {
-    background: var(--card);
-    border-radius: 22px;
-    padding: 2.4rem 2rem;
-    box-shadow: var(--shadow-md);
-    margin-top: 2.8rem;
-  }
+    #dict-section {
+      background: var(--card);
+      border-radius: 22px;
+      padding: 2.4rem 2rem;
+      box-shadow: var(--shadow-md);
+      margin-top: 2.8rem;
+    }
 
-  .input-group {
-    position: relative;
-    margin: 1.6rem 0;
-  }
+    .input-group {
+      position: relative;
+      margin: 1.6rem 0;
+    }
 
-  #word-input {
-    width: 100%;
-    padding: 1.4rem 4.5rem 1.4rem 1.6rem;
-    font-size: 1.4rem;
-    border: 2px solid var(--border);
-    border-radius: 16px;
-    transition: all 0.25s;
-  }
+    #word-input {
+      width: 100%;
+      padding: 1.4rem 4.5rem 1.4rem 1.6rem;
+      font-size: 1.4rem;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      transition: all 0.25s;
+    }
 
-  #word-input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(139,0,0,0.09);
-  }
+    #word-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(139,0,0,0.09);
+    }
 
-  .clear-btn {
-    position: absolute;
-    right: 1.3rem;
-    top: 50%;
-    transform: translateY(-50%);
-    background: transparent;
-    border: none;
-    font-size: 2.1rem;
-    color: #888;
-    cursor: pointer;
-    width: 42px;
-    height: 42px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: all 0.2s;
-  }
+    .clear-btn {
+      position: absolute;
+      right: 1.3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      font-size: 2.1rem;
+      color: #888;
+      cursor: pointer;
+      width: 42px;
+      height: 42px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
 
-  .clear-btn:hover {
-    color: var(--primary);
-    background: rgba(139,0,0,0.07);
-  }
+    .clear-btn:hover {
+      color: var(--primary);
+      background: rgba(139,0,0,0.07);
+    }
 
-  #level-select {
-    width: 100%;
-    padding: 1.3rem 1.5rem;
-    font-size: 1.32rem;
-    border: 2px solid var(--border);
-    border-radius: 16px;
-    background: white;
-    margin-bottom: 1.6rem;
-  }
+    #level-select {
+      width: 100%;
+      padding: 1.3rem 1.5rem;
+      font-size: 1.32rem;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      background: white;
+      margin-bottom: 1.6rem;
+    }
 
-  #search-btn {
-    width: 100%;
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 1.45rem;
-    border-radius: 16px;
-    font-size: 1.38rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 5px 16px rgba(139,0,0,0.2);
-    transition: all 0.25s ease;
-  }
+    #search-btn {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 1.45rem;
+      border-radius: 16px;
+      font-size: 1.38rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 5px 16px rgba(139,0,0,0.2);
+      transition: all 0.25s ease;
+    }
 
-  #search-btn:hover {
-    background: var(--accent);
-    transform: translateY(-2px);
-  }
+    #search-btn:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
 
-  #result {
-    margin-top: 2.4rem;
-  }
+    #result {
+      margin-top: 2.4rem;
+    }
 
-  .dict-word {
-    font-size: 2.6rem;
-    font-weight: 700;
-    margin: 0 0 0.5rem;
-    color: var(--text);
-  }
+    .dict-word {
+      font-size: 2.6rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      color: var(--text);
+    }
 
-  .phonetic {
-    color: var(--text-secondary);
-    font-size: 1.35rem;
-  }
+    .phonetic {
+      color: var(--text-secondary);
+      font-size: 1.35rem;
+    }
 
-  .pos {
-    font-weight: 700;
-    color: var(--primary);
-    text-transform: capitalize;
-    font-size: 1.55rem;
-    margin: 2rem 0 1rem;
-    display: block;
-  }
+    .pos {
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: capitalize;
+      font-size: 1.55rem;
+      margin: 2rem 0 1rem;
+      display: block;
+    }
 
-  .def-item {
-    margin: 1.3rem 0;
-    font-size: 1.15rem;
-  }
+    .def-item {
+      margin: 1.3rem 0;
+      font-size: 1.15rem;
+    }
 
-  .example {
-    color: var(--text-secondary);
-    font-style: italic;
-  }
+    .example {
+      color: var(--text-secondary);
+      font-style: italic;
+    }
 
-  .origin {
-    background: #FFF8F8;
-    border-left: 5px solid var(--primary);
-    padding: 1.3rem 1.6rem;
-    margin: 2rem 0;
-    border-radius: 10px;
-    font-size: 1.1rem;
-  }
+    .origin {
+      background: #FFF8F8;
+      border-left: 5px solid var(--primary);
+      padding: 1.3rem 1.6rem;
+      margin: 2rem 0;
+      border-radius: 10px;
+      font-size: 1.1rem;
+    }
 
-  .video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    margin: 2.4rem 0;
-    border-radius: 18px;
-    box-shadow: var(--shadow-md);
-  }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      margin: 2.4rem 0;
+      border-radius: 18px;
+      box-shadow: var(--shadow-md);
+    }
 
-  .video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
 
-  ol, ul {
-    padding-left: 2rem;
-    margin: 1.6rem 0;
-  }
+    ol, ul {
+      padding-left: 2rem;
+      margin: 1.6rem 0;
+    }
 
-  li {
-    margin-bottom: 1.2rem;
-    font-size: 1.1rem;
-  }
+    li {
+      margin-bottom: 1.2rem;
+      font-size: 1.1rem;
+    }
 
-  strong {
-    color: var(--primary);
-    font-weight: 600;
-  }
+    strong {
+      color: var(--primary);
+      font-weight: 600;
+    }
 
-  .footer-note {
-    text-align: center;
-    color: #666;
-    font-size: 1rem;
-    margin: 5rem 0 3rem;
-    padding-top: 2.5rem;
-    border-top: 1px solid #EEE;
-  }
-</style>
+    .footer-note {
+      text-align: center;
+      color: #666;
+      font-size: 1rem;
+      margin: 5rem 0 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid #EEE;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Study Tech</h1>
+    <p class="subtitle">Master Learning with Proven Study Technology</p>
+  </header>
+
+  <div class="container">
+    <div id="main-content">
+      <section>
+        <h2>The Study Barriers</h2>
+        <p class="section-intro">Tap each barrier to learn more about what can block effective study.</p>
+        <button class="barrier-btn" onclick="showPage('intro')">
+          <div class="btn-left">
+            <i class="fa-solid fa-book-open btn-icon"></i>
+            <span>Intro: The Barriers to Study</span>
+          </div>
+          <span class="chevron">›</span>
+        </button>
+        <button class="barrier-btn" onclick="showPage('mass')">
+          <div class="btn-left">
+            <i class="fa-solid fa-cube btn-icon"></i>
+            <span>1. Absence of Mass</span>
+          </div>
+          <span class="chevron">›</span>
+        </button>
+        <button class="barrier-btn" onclick="showPage('gradient')">
+          <div class="btn-left">
+            <i class="fa-solid fa-chart-line btn-icon"></i>
+            <span>2. Skipped Gradient</span>
+          </div>
+          <span class="chevron">›</span>
+        </button>
+        <button class="barrier-btn" onclick="showPage('word')">
+          <div class="btn-left">
+            <i class="fa-solid fa-question-circle btn-icon"></i>
+            <span>3. Misunderstood Word</span>
+          </div>
+          <span class="chevron">›</span>
+        </button>
+      </section>
+
+      <section>
+        <h2>Word Clearing</h2>
+        <button class="barrier-btn" onclick="showPage('why-clear')">
+          <div class="btn-left">
+            <i class="fa-solid fa-lightbulb btn-icon"></i>
+            <span>Why Clear Your Words?</span>
+          </div>
+          <span class="chevron">›</span>
+        </button>
+        <button class="barrier-btn" onclick="showPage('how-to-clear')">
+          <div class="btn-left">
+            <i class="fa-solid fa-magnifying-glass btn-icon"></i>
+            <span>How to Clear a Word</span>
+          </div>
+          <span class="chevron">›</span>
+        </button>
+        <button class="barrier-btn" onclick="showPage('help-another')">
+          <div class="btn-left">
+            <i class="fa-solid fa-users btn-icon"></i>
+            <span>How to Help Another Clear Words</span>
+          </div>
+          <span class="chevron">›</span>
+        </button>
+      </section>
+
+      <section id="study-tools">
+        <h2>Study Tools</h2>
+        <div id="dict-section">
+          <h3>Built-in Dictionary</h3>
+          <p>Simple lookup: definitions + origin/derivation when available.</p>
+
+          <select id="level-select">
+            <option value="beginner">Beginner / Elementary Level</option>
+            <option value="intermediate" selected>Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </select>
+
+          <div class="input-group">
+            <input type="text" id="word-input" placeholder="Enter a word (e.g., epistemology)" />
+            <button id="clear-btn" class="clear-btn">×</button>
+          </div>
+
+          <button id="search-btn">Look Up</button>
+          <div id="result"></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="intro" class="page">
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+      <h2>THE BARRIERS TO STUDY</h2>
+      <p>Based on article "The Barriers to Study" by L. Ron Hubbard</p>
+      <p>It has been discovered that there are three definite barriers which can block a person’s ability to study and thus his ability to be educated. These barriers actually produce physical and mental reactions.</p>
+      <p>If one knows and understands what these barriers are and how to handle them, his ability to study and learn will be greatly increased.</p>
+      <p>The Barriers to Study form the core basis of The Technology of Study®.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/M-iQD2B7ZjE?start=110" title="Study Technology Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+    </div>
+
+    <div id="mass" class="page">
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+      <h2>The First Barrier to Study: Absence of Mass</h2>
+      <p>If one is attempting to understand the function and operation of a car or a computer or a solar system, the printed page and spoken word are no substitute for the object itself.</p>
+      <p>It would be difficult to understand how to use a computer for the first time if you did not have the computer there in front of you. In fact, lacking the object associated with a word can inhibit all understanding (I think we can agree here that attempting to study how an aircraft flies and the various parts of an aircraft, without ever seeing or touching an aircraft, or a reasonable mock-up of one, would make a successful study of it pretty much impossible).</p>
+      <p>If the mass of a subject is absent, you can actually feel squashed. It can make you feel bent, sort of spinny, sort of dead, or bored. A person studying a subject without the objects related to that subject, will experience these and several other specific reactions.</p>
+      <p>Knowing how to identify and handle these reactions is vital to a student's ability to grasp and use a subject - and more than vital to a teacher's ability to get a student to learn the subject.</p>
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+    </div>
+
+    <div id="gradient" class="page">
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+      <h2>The Second Barrier to Study: Skipped Gradient</h2>
+      <p>A gradient is a way of learning or doing something step by step. A gradient can be easy where each step can be done easily, or it can be hard where each step is difficult to do.</p>
+      <p>Too steep a gradient consists of not having mastered prior skills before going on to more complicated or detailed steps.</p>
+      <p>A student who has skipped a gradient may feel a sort of confusion or a feeling of reeling (i.e., moving or swaying like you might fall).</p>
+      <p>These are two reactions a person can experience when they have missed a step or hit too steep a gradient in the subject they’re studying.</p>
+      <p>This is often referred to as “missed basic skills” or “insufficient basic skills.”</p>
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+    </div>
+
+    <div id="word" class="page">
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+      <h2>The Third Barrier to Study: Misunderstood Word</h2>
+      <p>The third and most important barrier is the misunderstood word.</p>
+      <p>“Mis” means not or wrongly. “Misunderstood” means not understood or wrongly understood. A misunderstood word is a word which is not understood or a word which is wrongly understood.</p>
+      <p>Have you ever been reading a book or a report, gotten to the end of the page and couldn’t remember what you read? Therein lies the phenomena of the misunderstood word—all becomes distinctly blank beyond a word not understood or wrongly understood.</p>
+      <p>It can make you feel blank or washed out. It can make you feel “not there” and a sort of a nervous upset feeling can follow after that.</p>
+      <p>The matter is far more critical than one might surmise and of the three barriers it is the misunderstood that bears most upon human relations, the mind and understanding.</p>
+      <p>It is the misunderstood word that establishes aptitude—or lack of it.</p>
+      <p>It produces a vast panorama of reactions and is the prime factor involved with stupidity. It also determines whether or not one can actually perform a learned skill, and to what degree of proficiency. All of these are the result of one or more words or symbols not understood or wrongly understood.</p>
+      <p>The misunderstood word can stop a student in his tracks completely. Knowing how to determine when there is a misunderstood word or symbol, how to find it and how to handle it are critical to the success of any student.</p>
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+    </div>
+
+    <div id="why-clear" class="page">
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+      <h2>Why Clear Your Words?</h2>
+      <p>Basic Word Clearing is the method of finding a misunderstood word by looking earlier in the text than where you are having trouble.</p>
+      <p>When studying something, it is important to know how to keep yourself moving along and doing well. To be a successful student, you should look up each word you come to that you don’t understand. Never leave a word behind you that you don’t know the meaning of.</p>
+      <p>But if you ever run into trouble while studying, you would use Basic Word Clearing to help you find and handle the misunderstood word that stopped your successful study progress. Anyone helping you with your studies would use this method and you can also use it to help anyone else.</p>
+      <p>As soon as you slow down or you don’t feel quite as “bright” as you did fifteen minutes ago, that is the time to use Basic Word Clearing and look for the misunderstood word.</p>
+      <p>Don’t wait until you start feeling half asleep or are actually falling asleep while studying something. That is waiting far too long to find and clear the misunderstood word. You went past a word you did not fully understand long before you started to feel sleepy.</p>
+      <p>If you have ever seen another person falling asleep while reading a book, then you have seen what happens well after the person went blank from passing a misunderstood word.</p>
+      <p>And remember that it is not a group of words or an idea that was misunderstood; it is a misunderstood word. Going past a misunderstood word is always what happens first. It’s what happens before a whole subject is misunderstood.</p>
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+    </div>
+
+    <div id="how-to-clear" class="page">
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+      <h2>How to Clear a Word</h2>
+      <p>Basic Word Clearing is done as follows:</p>
+      <ol>
+        <li>You realize that you are not moving along on your studies as fast as you were or that you are not as bright as you were earlier. It might also be one of the following:
+          <ul>
+            <li>You are just not as interested in what you are studying.</li>
+            <li>You are taking too long to get through something.</li>
+            <li>You might be yawning.</li>
+            <li>You might be doodling (scribbling or making patterns or designs with a pen or pencil).</li>
+            <li>You might be daydreaming, etc.</li>
+          </ul>
+        </li>
+        <li>As soon as this happens, you must stop and look earlier in what you were studying and find the misunderstood word. There will always be one there and you must find it. There are no exceptions. It may be that the misunderstood word is two pages or more before the place where you stopped studying. But it is always earlier in the text than where you are now.</li>
+        <li>You find the word. You may recognize it while looking back for it, but if you can’t find it, you or the person helping you with your study can pick out words from what you were reading that could be the misunderstood word. Someone helping you can ask, “What does ______ mean?” to see if you give the correct definition.</li>
+        <li>When you have found the misunderstood word, you look it up in a dictionary and clear it per the Steps to Clear a Word section of this course. You look up and clear the definition that fits the context. You use it in sentences that you make up, until you fully understand it. Then you clear each of the listed definitions and use each of them several times in sentences until you fully understand the word. You then clear the derivation and any idioms or synonyms, etc.</li>
+        <li>Now that you have a full understanding of the word, you go back to what you were reading and once again read the part that contained the misunderstood word. If you are still not “bright,” wanting to get on with it and feeling happier about it, then there is another misunderstood word earlier in the text. You must find it and clear it by repeating steps 2 to 5 above.</li>
+        <li>When you feel bright and enthusiastic again, that is the end result of Basic Word Clearing. (The result won’t be achieved if a word you did not understand was missed or if there is an earlier misunderstood word in the text. If this happens, repeat steps 2 to 5.) If you are now enthusiastic, continue studying the text from where the misunderstood was found and cleared.</li>
+      </ol>
+      <p><strong>In summary, the steps of Basic Word Clearing are as follows:</strong></p>
+      <ul>
+        <li>a. Find out where you weren’t having any trouble.</li>
+        <li>b. Find out where you are now having trouble.</li>
+        <li>c. The misunderstood word will be right at the end of where you weren’t having trouble. It will be right in that immediate area. You can pinpoint it.</li>
+      </ul>
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+    </div>
+
+    <div id="help-another" class="page">
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+      <h2>How to Help Another Clear Words</h2>
+      <h3>Simple Reading Aloud Word Clearing</h3>
+      <p>Whenever you are assisting children, people who speak a foreign language or someone who is not able to read or write well, you can use Simple Reading Aloud Word Clearing to help them.</p>
+      <p>The person is made to read aloud so you can find out what he is doing. The most surprising things can happen, such as the following:</p>
+      <ul>
+        <li>a. The person can leave out a word completely.</li>
+        <li>b. He can change a word to say something else.</li>
+        <li>c. He can hesitate when he sees certain words.</li>
+      </ul>
+      <p>Simple Reading Aloud Word Clearing is done following the steps listed below. You and the person who will be reading both have a copy of the same book or text in front of you.</p>
+      <p>When you are working with another person and doing the steps of Simple Reading Aloud Word Clearing on that person, you are called the “word clearer” because you are helping him to find and clear his misunderstood words. The person who is reading the text aloud and receiving Word Clearing is referred to as the “student.”</p>
+      <p><strong>PROCEDURE</strong></p>
+      <ol>
+        <li>You tell the student to read the text aloud while you follow along, reading the copy of the material in front of you.</li>
+        <li>Each time he leaves out or changes a word or hesitates or frowns as he reads a word, take it up at once.</li>
+        <li>Correct it by looking up the word he left out or changed or hesitated or frowned while reading. Find the definition for him in a dictionary or explain it to him.</li>
+        <li>When you have cleared up the meaning of the word, get the student to go back to the book or material and carry on reading and note the next time he leaves out or changes a word or hesitates or frowns.</li>
+      </ol>
+      <p>Each time this happens, you repeat steps 2 to 4 above.</p>
+      <p>By doing Simple Reading Aloud Word Clearing, you can help someone who is moving along slowly while studying and also help the person to improve his ability to read.</p>
+      <p>After doing Simple Reading Aloud Word Clearing, the person’s next step would be to learn how to use a dictionary to look up and clear the meaning of words himself as he goes along.</p>
+      <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Powered by L. Ron Hubbard’s Study Technology • Designed for focused, high-performance learning
+  </div>
+
+  <script>
+    let currentWord = '';
+
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(el => el.style.display = 'none');
+      document.getElementById('main-content').style.display = 'none';
+      if (pageId === 'main') {
+        document.getElementById('main-content').style.display = 'block';
+      } else {
+        document.getElementById(pageId).style.display = 'block';
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    showPage('main');
+
+    async function lookupWord() {
+      const word = document.getElementById('word-input').value.trim().toLowerCase();
+      if (!word) return;
+      currentWord = word;
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = '<p style="text-align:center; color:#777; padding:2.5rem 0;">Loading...</p>';
+      const level = document.getElementById('level-select').value;
+      try {
+        const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+        if (!res.ok) throw new Error('Not found');
+        const data = await res.json();
+        const entry = data[0];
+        let html = `<h3 class="dict-word">${entry.word}${entry.phonetic ? ` <span class="phonetic">/${entry.phonetic}/</span>` : ''}</h3>`;
+        if (entry.origin && entry.origin.trim()) {
+          html += `<div class="origin"><strong>Origin / Derivation:</strong><br>${entry.origin}</div>`;
+        }
+        entry.meanings.forEach(meaning => {
+          const pos = meaning.partOfSpeech.charAt(0).toUpperCase() + meaning.partOfSpeech.slice(1);
+          html += `<div class="pos">${pos}</div>`;
+          let defs = meaning.definitions;
+          if (level === 'beginner') {
+            defs = defs.filter(def => def.definition.length <= 60);
+            if (defs.length > 1) defs = defs.slice(0, 1);
+          } else if (level === 'intermediate') {
+            defs = defs.filter(def => def.definition.length <= 120);
+            if (defs.length > 3) defs = defs.slice(0, 3);
+          }
+          defs.forEach((def, index) => {
+            html += `<p class="def-item">${index + 1}. ${def.definition}`;
+            if (def.example) html += ` <span class="example">Example: ${def.example}</span>`;
+            html += `</p>`;
+          });
+        });
+        resultDiv.innerHTML = html;
+      } catch (err) {
+        resultDiv.innerHTML = '<p style="color:var(--primary); text-align:center; padding:2.5rem 0; font-size:1.15rem;">Word not found or offline.<br>Please check spelling and try again.</p>';
+      }
+    }
+
+    document.getElementById('search-btn').addEventListener('click', lookupWord);
+    document.getElementById('word-input').addEventListener('keypress', e => {
+      if (e.key === 'Enter') lookupWord();
+    });
+    document.getElementById('level-select').addEventListener('change', () => {
+      if (currentWord) lookupWord();
+    });
+
+    const wordInput = document.getElementById('word-input');
+    const clearBtn = document.getElementById('clear-btn');
+    wordInput.addEventListener('input', () => {
+      clearBtn.style.display = wordInput.value.trim() ? 'flex' : 'none';
+    });
+    clearBtn.addEventListener('click', () => {
+      wordInput.value = '';
+      clearBtn.style.display = 'none';
+      document.getElementById('result').innerHTML = '';
+      currentWord = '';
+      wordInput.focus();
+    });
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
