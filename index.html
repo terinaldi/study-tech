@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover"/>
   <title>Study Tech</title>
   <link rel="manifest" href="manifest.json"/>
   <meta name="theme-color" content="#8B0000"/>
@@ -41,14 +41,21 @@
       font-weight: 400;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
     }
 
     header {
       background: linear-gradient(145deg, #6b0000 0%, #8B0000 50%, #a11212 100%);
       color: white;
       text-align: center;
-      padding: 2.8rem 1.2rem 2.2rem;
-      position: relative;
+      padding: calc(2.8rem + env(safe-area-inset-top)) 1.2rem 2.2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0,0,0,0.25);
     }
@@ -101,7 +108,11 @@
     .container {
       max-width: 960px;
       margin: 0 auto;
-      padding: 1.6rem 1.3rem 3.5rem;
+      padding: 1.6rem 1.3rem 5rem; /* extra bottom for safe area */
+    }
+
+    main { /* wrap content if needed, but here we use .container */
+      padding-top: 1rem;
     }
 
     h2 {
@@ -182,7 +193,7 @@
       display: none;
       background: var(--card);
       margin: 1.2rem 0 2.5rem;
-      padding: 2.4rem 2rem 3.5rem;
+      padding: 2.4rem 2rem calc(3.5rem + env(safe-area-inset-bottom));
       border-radius: 22px;
       box-shadow: var(--shadow-md);
     }
@@ -370,8 +381,8 @@
       text-align: center;
       color: #666;
       font-size: 1rem;
-      margin: 5rem 0 3rem;
-      padding-top: 2.5rem;
+      margin: 5rem 0 5rem;
+      padding: 2.5rem 0 0;
       border-top: 1px solid #EEE;
     }
 
@@ -472,6 +483,7 @@
       </section>
     </div>
 
+    <!-- Pages -->
     <div id="intro" class="page">
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
       <h2>THE BARRIERS TO STUDY</h2>
@@ -494,6 +506,8 @@
       <p>Knowing how to identify and handle these reactions is vital to a student's ability to grasp and use a subject - and more than vital to a teacher's ability to get a student to learn the subject.</p>
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
     </div>
+
+    <!-- The other pages remain unchanged in content – just the safe-area padding is applied via body/.page -->
 
     <div id="gradient" class="page">
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
