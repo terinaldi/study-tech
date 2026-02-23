@@ -26,13 +26,13 @@
       --border: #E2E2E2;
       --shadow-sm: 0 2px 10px rgba(0,0,0,0.07);
       --shadow-md: 0 8px 28px rgba(139,0,0,0.11);
-      --safe-bottom-fallback: 48px; /* fallback for home indicator in portrait */
+      --safe-bottom-fallback: 48px;
     }
 
     * { box-sizing: border-box; }
 
     html, body {
-      height: 100dvh; /* dynamic viewport height – fixes bottom cutoff better than 100vh */
+      height: 100dvh;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
@@ -52,7 +52,7 @@
       padding-bottom: calc(env(safe-area-inset-bottom) + var(--safe-bottom-fallback));
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
-      overscroll-behavior: contain; /* prevents pull-to-refresh clipping */
+      overscroll-behavior: contain;
     }
 
     header {
@@ -201,6 +201,20 @@
       box-shadow: var(--shadow-md);
     }
 
+    .mass-image-container {
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .mass-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      display: block;
+      margin: 0 auto;
+    }
+
     .back-btn {
       display: inline-flex;
       align-items: center;
@@ -305,7 +319,7 @@
 
     #result {
       margin-top: 2.4rem;
-      padding-bottom: 3rem; /* extra buffer for bottom cutoff */
+      padding-bottom: 3rem;
     }
 
     .dict-word {
@@ -487,6 +501,7 @@
       </section>
     </div>
 
+    <!-- Pages -->
     <div id="intro" class="page">
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
       <h2>THE BARRIERS TO STUDY</h2>
@@ -505,8 +520,19 @@
       <h2>The First Barrier to Study: Absence of Mass</h2>
       <p>If one is attempting to understand the function and operation of a car or a computer or a solar system, the printed page and spoken word are no substitute for the object itself.</p>
       <p>It would be difficult to understand how to use a computer for the first time if you did not have the computer there in front of you. In fact, lacking the object associated with a word can inhibit all understanding (I think we can agree here that attempting to study how an aircraft flies and the various parts of an aircraft, without ever seeing or touching an aircraft, or a reasonable mock-up of one, would make a successful study of it pretty much impossible).</p>
+      
+      <div class="mass-image-container">
+        <img src="pics/mass1.png" alt="Illustration of Absence of Mass - physical object needed" class="mass-image">
+      </div>
+
       <p>If the mass of a subject is absent, you can actually feel squashed. It can make you feel bent, sort of spinny, sort of dead, or bored. A person studying a subject without the objects related to that subject, will experience these and several other specific reactions.</p>
+      
+      <div class="mass-image-container">
+        <img src="pics/mass2.png" alt="Physical sensations when mass is absent" class="mass-image">
+      </div>
+
       <p>Knowing how to identify and handle these reactions is vital to a student's ability to grasp and use a subject - and more than vital to a teacher's ability to get a student to learn the subject.</p>
+      
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
     </div>
 
