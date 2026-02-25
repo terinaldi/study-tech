@@ -89,7 +89,7 @@
 
     .back-btn:hover { background:var(--primary); color:white; }
 
-    /* How to Clear a Word - Clean Manual Style */
+    /* How to Clear a Word - Clean Manual Style (only main steps numbered) */
     #how-to-clear ol {
       counter-reset: step;
       padding-left:0;
@@ -100,7 +100,7 @@
     #how-to-clear li {
       counter-increment: step;
       margin:2.5rem 0;
-      padding-left:4rem;
+      padding-left:4.2rem;
       position:relative;
       font-size:1.18rem;
       line-height:1.7;
@@ -111,12 +111,12 @@
       position:absolute;
       left:0;
       top:-0.3rem;
-      width:3.2rem;
-      height:3.2rem;
+      width:3.4rem;
+      height:3.4rem;
       background:var(--primary);
       color:white;
       font-weight:800;
-      font-size:1.6rem;
+      font-size:1.7rem;
       border-radius:50%;
       display:flex;
       align-items:center;
@@ -438,15 +438,7 @@
       <p>Basic Word Clearing is done as follows:</p>
 
       <ol>
-        <li>You realize that you are not moving along on your studies as fast as you were or that you are not as bright as you were earlier. It might also be one of the following:
-          <ul>
-            <li>You are just not as interested in what you are studying.</li>
-            <li>You are taking too long to get through something.</li>
-            <li>You might be yawning.</li>
-            <li>You might be doodling (scribbling or making patterns or designs with a pen or pencil).</li>
-            <li>You might be daydreaming, etc.</li>
-          </ul>
-        </li>
+        <li>You realize that you are not moving along on your studies as fast as you were or that you are not as bright as you were earlier. It might also be one of the following: You are just not as interested in what you are studying. You are taking too long to get through something. You might be yawning. You might be doodling (scribbling or making patterns or designs with a pen or pencil). You might be daydreaming, etc.</li>
 
         <li>As soon as this happens, you must stop and look earlier in what you were studying and find the misunderstood word. There will always be one there and you must find it. There are no exceptions. It may be that the misunderstood word is two pages or more before the place where you stopped studying. But it is always earlier in the text than where you are now.</li>
 
@@ -501,6 +493,7 @@
   </div>
 
   <script>
+    // Full script unchanged – keeping audio, dictionary, showPage, etc.
     let currentWord = '';
 
     function showPage(pageId) {
@@ -530,7 +523,6 @@
 
         let html = `<h3 class="dict-word">${entry.word}</h3>`;
 
-        // Pronunciation audio – show icon if audio exists
         if (entry.phonetics && entry.phonetics.length > 0) {
           const phoneticWithAudio = entry.phonetics.find(p => p.audio && p.audio.trim() !== '');
           if (phoneticWithAudio) {
