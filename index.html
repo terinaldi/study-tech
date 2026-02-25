@@ -89,15 +89,15 @@
 
     .back-btn:hover { background:var(--primary); color:white; }
 
-    /* How to Clear a Word - Clean Manual Style */
-    #how-to-clear ol {
+    /* Manual Style for Numbered Steps */
+    .manual-section ol {
       counter-reset: step;
       padding-left:0;
       list-style:none;
       margin:2rem 0;
     }
 
-    #how-to-clear li {
+    .manual-section li {
       counter-increment: step;
       margin:2.5rem 0;
       padding-left:4.5rem;
@@ -106,7 +106,7 @@
       line-height:1.7;
     }
 
-    #how-to-clear li:before {
+    .manual-section li:before {
       content: counter(step);
       position:absolute;
       left:0;
@@ -123,6 +123,14 @@
       justify-content:center;
       box-shadow:0 4px 12px rgba(30,64,175,0.3);
     }
+
+    .manual-section ul {
+      padding-left:1.8rem;
+      margin:1rem 0;
+      list-style:disc;
+    }
+
+    .manual-section ul li { font-size:1.05rem; margin:0.6rem 0; }
 
     #dict-section {
       background:white;
@@ -463,26 +471,41 @@
     <div id="help-another" class="page">
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
       <h2>How to Help Another Clear Words</h2>
-      <h3>Simple Reading Aloud Word Clearing</h3>
-      <p>Whenever you are assisting children, people who speak a foreign language or someone who is not able to read or write well, you can use Simple Reading Aloud Word Clearing to help them.</p>
+
+      <h3>When to help another clear a word:</h3>
+      <ol>
+        <li>Whenever you are assisting children, people who speak a foreign language or someone who is not able to read or write well, you can use Simple Reading Aloud Word Clearing to help them.</li>
+      </ol>
+
+      <h3>Recognizing the need:</h3>
       <p>The person is made to read aloud so you can find out what he is doing. The most surprising things can happen, such as the following:</p>
       <ul>
         <li>The person can leave out a word completely.</li>
         <li>He can change a word to say something else.</li>
         <li>He can hesitate when he sees certain words.</li>
       </ul>
+
+      <h3>How to do Simple Reading Aloud Word Clearing:</h3>
       <p>Simple Reading Aloud Word Clearing is done following the steps listed below. You and the person who will be reading both have a copy of the same book or text in front of you.</p>
       <p>When you are working with another person and doing the steps of Simple Reading Aloud Word Clearing on that person, you are called the “word clearer” because you are helping him to find and clear his misunderstood words. The person who is reading the text aloud and receiving Word Clearing is referred to as the “student.”</p>
-      <p><strong>PROCEDURE</strong></p>
+
+      <h3>PROCEDURE</h3>
       <ol>
         <li>You tell the student to read the text aloud while you follow along, reading the copy of the material in front of you.</li>
+
         <li>Each time he leaves out or changes a word or hesitates or frowns as he reads a word, take it up at once.</li>
+
         <li>Correct it by looking up the word he left out or changed or hesitated or frowned while reading. Find the definition for him in a dictionary or explain it to him.</li>
+
         <li>When you have cleared up the meaning of the word, get the student to go back to the book or material and carry on reading and note the next time he leaves out or changes a word or hesitates or frowns.</li>
       </ol>
+
       <p>Each time this happens, you repeat steps 2 to 4 above.</p>
+
+      <h3>Completion:</h3>
       <p>By doing Simple Reading Aloud Word Clearing, you can help someone who is moving along slowly while studying and also help the person to improve his ability to read.</p>
       <p>After doing Simple Reading Aloud Word Clearing, the person’s next step would be to learn how to use a dictionary to look up and clear the meaning of words himself as he goes along.</p>
+
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
     </div>
   </div>
