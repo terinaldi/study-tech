@@ -27,18 +27,7 @@
       --safe-bottom: 48px;
     }
 
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      overflow-x: hidden;
-    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -46,15 +35,15 @@
       color: var(--text);
       line-height: 1.55;
       font-size: 17px;
-      font-weight: 400;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-text-size-adjust: 100%;
-      text-rendering: optimizeLegibility;
+      margin: 0;
       padding-top: env(safe-area-inset-top);
       padding-bottom: calc(env(safe-area-inset-bottom) + var(--safe-bottom));
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-text-size-adjust: 100%;
+      text-rendering: optimizeLegibility;
     }
 
     header {
@@ -65,322 +54,205 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.14);
     }
 
-    h1 {
-      margin: 0;
-      font-size: 2.35rem;
-      font-weight: 800;
-      letter-spacing: -0.6px;
-      line-height: 1.12;
-    }
+    h1 { margin:0; font-size:2.35rem; font-weight:800; letter-spacing:-0.6px; line-height:1.12; }
+    .subtitle { margin:0.45rem 0 0; font-size:1.05rem; font-weight:400; color:#ffffff; opacity:1; letter-spacing:0.2px; }
 
-    .subtitle {
-      margin: 0.45rem 0 0;
-      font-size: 1.05rem;
-      font-weight: 400;
-      color: #ffffff;               /* bright white – fully readable */
-      opacity: 1;
-      letter-spacing: 0.2px;
-    }
+    .container { max-width:960px; margin:0 auto; padding:1.2rem 1rem calc(5rem + env(safe-area-inset-bottom)); }
 
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 1.2rem 1rem calc(5rem + env(safe-area-inset-bottom));
-    }
+    h2 { color:var(--primary); font-size:2.1rem; font-weight:700; margin:2.5rem 0 1.3rem; letter-spacing:-0.3px; }
+    h3 { color:var(--accent); font-size:1.7rem; font-weight:650; margin:2.1rem 0 1.1rem; }
 
-    h2 {
-      color: var(--primary);
-      font-size: 2.1rem;
-      font-weight: 700;
-      margin: 2.5rem 0 1.3rem;
-      letter-spacing: -0.3px;
-    }
-
-    h3 {
-      color: var(--accent);
-      font-size: 1.7rem;
-      font-weight: 650;
-      margin: 2.1rem 0 1.1rem;
-    }
-
-    p, li {
-      font-size: 1.06rem;
-      margin: 1.1rem 0;
-      color: var(--text-secondary);
-    }
-
-    .page p, .page li {
-      font-size: 1.09rem;
-      line-height: 1.75;
-    }
+    p, li { font-size:1.06rem; margin:1.1rem 0; color:var(--text-secondary); }
+    .page p, .page li { font-size:1.09rem; line-height:1.75; }
 
     .barrier-btn {
-      width: 100%;
-      padding: 1.3rem 1.5rem;
-      margin: 1rem 0;
-      background: white;
-      border: none;
-      border-radius: 16px;
-      font-size: 1.32rem;
-      font-weight: 600;
-      text-align: left;
-      box-shadow: var(--shadow-sm);
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.22s ease;
+      width:100%; padding:1.3rem 1.5rem; margin:1rem 0; background:white; border:none; border-radius:16px;
+      font-size:1.32rem; font-weight:600; text-align:left; box-shadow:var(--shadow-sm); cursor:pointer;
+      display:flex; justify-content:space-between; align-items:center; transition:all 0.22s ease;
     }
 
-    .barrier-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-md);
-    }
+    .barrier-btn:hover { transform:translateY(-1px); box-shadow:var(--shadow-md); }
 
-    .btn-left {
-      display: flex;
-      align-items: center;
-      gap: 1.1rem;
-    }
+    .btn-left { display:flex; align-items:center; gap:1.1rem; }
+    .btn-icon { font-size:1.75rem; color:var(--primary); width:40px; }
+    .chevron { font-size:2.3rem; color:#9ca3af; }
 
-    .btn-icon {
-      font-size: 1.75rem;
-      color: var(--primary);
-      width: 40px;
-    }
+    .page { display:none; background:white; margin:1rem 0; padding:2rem 1.5rem 5rem; border-radius:20px; box-shadow:var(--shadow-md); }
 
-    .chevron {
-      font-size: 2.3rem;
-      color: #9ca3af;
-    }
-
-    .page {
-      display: none;
-      background: white;
-      margin: 1rem 0;
-      padding: 2rem 1.5rem 5rem;
-      border-radius: 20px;
-      box-shadow: var(--shadow-md);
-    }
-
-    .mass-image, .skipped-image, .mu-image {
-      width: 100%;
-      height: auto;
-      border-radius: 14px;
-      margin: 2rem 0;
-      display: block;
-    }
+    .mass-image, .skipped-image, .mu-image { width:100%; height:auto; border-radius:14px; margin:2rem 0; display:block; }
 
     .back-btn {
-      background: transparent;
-      color: var(--primary);
-      border: 2px solid var(--primary);
-      padding: 0.9rem 1.8rem;
-      border-radius: 999px;
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 1.8rem;
-      cursor: pointer;
-      transition: all 0.2s;
+      background:transparent; color:var(--primary); border:2px solid var(--primary); padding:0.9rem 1.8rem;
+      border-radius:999px; font-size:1.2rem; font-weight:600; margin-bottom:1.8rem; cursor:pointer;
+      transition:all 0.2s;
     }
 
-    .back-btn:hover {
-      background: var(--primary);
-      color: white;
-    }
+    .back-btn:hover { background:var(--primary); color:white; }
 
+    /* How to Clear a Word - Clean Manual Style */
     #how-to-clear ol {
       counter-reset: step;
-      padding-left: 0;
-      list-style: none;
+      padding-left:0;
+      list-style:none;
+      margin:2rem 0;
     }
 
     #how-to-clear li {
       counter-increment: step;
-      margin: 2.2rem 0;
-      padding-left: 3.8rem;
-      position: relative;
-      font-size: 1.15rem;
-      line-height: 1.65;
+      margin:2.5rem 0;
+      padding-left:4rem;
+      position:relative;
+      font-size:1.18rem;
+      line-height:1.7;
     }
 
     #how-to-clear li:before {
       content: counter(step);
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 3rem;
-      height: 3rem;
-      background: var(--primary);
-      color: white;
-      font-weight: 800;
-      font-size: 1.5rem;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 10px rgba(30,64,175,0.3);
+      position:absolute;
+      left:0;
+      top:-0.3rem;
+      width:3.2rem;
+      height:3.2rem;
+      background:var(--primary);
+      color:white;
+      font-weight:800;
+      font-size:1.6rem;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 4px 12px rgba(30,64,175,0.3);
     }
+
+    #how-to-clear ul {
+      padding-left:1.8rem;
+      margin:1rem 0;
+      list-style:disc;
+    }
+
+    #how-to-clear ul li { font-size:1.05rem; margin:0.6rem 0; }
 
     #dict-section {
-      background: white;
-      border-radius: 20px;
-      padding: 2rem 1.5rem;
-      box-shadow: var(--shadow-md);
-      margin-top: 2.5rem;
+      background:white;
+      border-radius:20px;
+      padding:2rem 1.5rem;
+      box-shadow:var(--shadow-md);
+      margin-top:2.5rem;
     }
 
-    .input-group {
-      position: relative;
-      margin: 1.5rem 0;
-    }
+    .input-group { position:relative; margin:1.5rem 0; }
 
     #word-input {
-      width: 100%;
-      padding: 1.3rem 4.2rem 1.3rem 1.5rem;
-      font-size: 1.32rem;
-      border: 2px solid var(--border);
-      border-radius: 14px;
+      width:100%;
+      padding:1.3rem 4.2rem 1.3rem 1.5rem;
+      font-size:1.32rem;
+      border:2px solid var(--border);
+      border-radius:14px;
     }
 
-    #word-input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
-    }
+    #word-input:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(59,130,246,0.15); }
 
     .clear-btn {
-      position: absolute;
-      right: 1.2rem;
-      top: 50%;
-      transform: translateY(-50%);
-      background: transparent;
-      border: none;
-      font-size: 2rem;
-      color: #9ca3af;
-      cursor: pointer;
-      width: 40px;
-      height: 40px;
-      display: none;
-      align-items: center;
-      justify-content: center;
+      position:absolute;
+      right:1.2rem;
+      top:50%;
+      transform:translateY(-50%);
+      background:transparent;
+      border:none;
+      font-size:2rem;
+      color:#9ca3af;
+      cursor:pointer;
+      width:40px;
+      height:40px;
+      display:none;
+      align-items:center;
+      justify-content:center;
     }
 
     #level-select {
-      width: 100%;
-      padding: 1.3rem;
-      font-size: 1.28rem;
-      border: 2px solid var(--border);
-      border-radius: 14px;
-      margin-bottom: 1.3rem;
+      width:100%;
+      padding:1.3rem;
+      font-size:1.28rem;
+      border:2px solid var(--border);
+      border-radius:14px;
+      margin-bottom:1.3rem;
     }
 
     #search-btn {
-      width: 100%;
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 1.3rem;
-      border-radius: 14px;
-      font-size: 1.32rem;
-      font-weight: 600;
-      cursor: pointer;
+      width:100%;
+      background:var(--primary);
+      color:white;
+      border:none;
+      padding:1.3rem;
+      border-radius:14px;
+      font-size:1.32rem;
+      font-weight:600;
+      cursor:pointer;
     }
 
-    #search-btn:hover {
-      background: var(--accent);
-    }
+    #search-btn:hover { background:var(--accent); }
 
-    #result {
-      margin-top: 2.2rem;
-    }
+    #result { margin-top:2.2rem; }
 
-    .dict-word {
-      font-size: 2.4rem;
-      font-weight: 700;
-      margin-bottom: 0.4rem;
-    }
+    .dict-word { font-size:2.4rem; font-weight:700; margin-bottom:0.4rem; }
 
-    .phonetic-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 1.2rem;
-    }
+    .phonetic-wrapper { display:flex; align-items:center; gap:0.8rem; margin-bottom:1.2rem; }
 
-    .phonetic {
-      color: var(--text-secondary);
-      font-size: 1.28rem;
-      font-style: italic;
-    }
+    .phonetic { color:var(--text-secondary); font-size:1.28rem; font-style:italic; }
 
     .audio-btn {
-      background: transparent;
-      border: none;
-      color: var(--accent);
-      font-size: 1.5rem;
-      cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 50%;
-      transition: all 0.2s;
+      background:transparent;
+      border:none;
+      color:var(--accent);
+      font-size:1.5rem;
+      cursor:pointer;
+      padding:0.5rem;
+      border-radius:50%;
+      transition:all 0.2s;
     }
 
-    .audio-btn:hover {
-      background: rgba(59,130,246,0.12);
-    }
+    .audio-btn:hover { background:rgba(59,130,246,0.12); }
 
-    .pos {
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 1.45rem;
-      margin: 1.8rem 0 0.9rem;
-      display: block;
-    }
+    .pos { color:var(--primary); font-weight:700; font-size:1.45rem; margin:1.8rem 0 0.9rem; display:block; }
 
-    .def-item {
-      margin: 1.2rem 0;
-      font-size: 1.12rem;
-    }
+    .def-item { margin:1.2rem 0; font-size:1.12rem; }
 
-    .example {
-      color: var(--text-secondary);
-      font-style: italic;
-    }
+    .example { color:var(--text-secondary); font-style:italic; }
 
     .origin {
-      background: #eff6ff;
-      border-left: 4px solid var(--primary);
-      padding: 1.2rem 1.5rem;
-      margin: 1.8rem 0;
-      border-radius: 10px;
-      font-size: 1.06rem;
+      background:#eff6ff;
+      border-left:4px solid var(--primary);
+      padding:1.2rem 1.5rem;
+      margin:1.8rem 0;
+      border-radius:10px;
+      font-size:1.06rem;
     }
 
     .video-container {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-      margin: 2.2rem 0;
-      border-radius: 16px;
-      box-shadow: var(--shadow-md);
+      position:relative;
+      padding-bottom:56.25%;
+      height:0;
+      overflow:hidden;
+      margin:2.2rem 0;
+      border-radius:16px;
+      box-shadow:var(--shadow-md);
     }
 
     .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
     }
 
     .footer-note {
-      text-align: center;
-      color: #6b7280;
-      font-size: 0.92rem;
-      margin: 5rem 0 7rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
+      text-align:center;
+      color:#6b7280;
+      font-size:0.92rem;
+      margin:5rem 0 7rem;
+      padding-top:2rem;
+      border-top:1px solid var(--border);
     }
   </style>
 </head>
@@ -564,6 +436,7 @@
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
       <h2>How to Clear a Word</h2>
       <p>Basic Word Clearing is done as follows:</p>
+
       <ol>
         <li>You realize that you are not moving along on your studies as fast as you were or that you are not as bright as you were earlier. It might also be one of the following:
           <ul>
@@ -574,18 +447,25 @@
             <li>You might be daydreaming, etc.</li>
           </ul>
         </li>
+
         <li>As soon as this happens, you must stop and look earlier in what you were studying and find the misunderstood word. There will always be one there and you must find it. There are no exceptions. It may be that the misunderstood word is two pages or more before the place where you stopped studying. But it is always earlier in the text than where you are now.</li>
+
         <li>You find the word. You may recognize it while looking back for it, but if you can’t find it, you or the person helping you with your study can pick out words from what you were reading that could be the misunderstood word. Someone helping you can ask, “What does ______ mean?” to see if you give the correct definition.</li>
+
         <li>When you have found the misunderstood word, you look it up in a dictionary and clear it per the Steps to Clear a Word section of this course. You look up and clear the definition that fits the context. You use it in sentences that you make up, until you fully understand it. Then you clear each of the listed definitions and use each of them several times in sentences until you fully understand the word. You then clear the derivation and any idioms or synonyms, etc.</li>
+
         <li>Now that you have a full understanding of the word, you go back to what you were reading and once again read the part that contained the misunderstood word. If you are still not “bright,” wanting to get on with it and feeling happier about it, then there is another misunderstood word earlier in the text. You must find it and clear it by repeating steps 2 to 5 above.</li>
+
         <li>When you feel bright and enthusiastic again, that is the end result of Basic Word Clearing. (The result won’t be achieved if a word you did not understand was missed or if there is an earlier misunderstood word in the text. If this happens, repeat steps 2 to 5.) If you are now enthusiastic, continue studying the text from where the misunderstood was found and cleared.</li>
       </ol>
+
       <p><strong>In summary, the steps of Basic Word Clearing are as follows:</strong></p>
       <ul>
         <li>a. Find out where you weren’t having any trouble.</li>
         <li>b. Find out where you are now having trouble.</li>
         <li>c. The misunderstood word will be right at the end of where you weren’t having trouble. It will be right in that immediate area. You can pinpoint it.</li>
       </ul>
+
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
     </div>
 
