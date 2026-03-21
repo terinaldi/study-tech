@@ -140,7 +140,11 @@
       margin-top:2.5rem;
     }
 
-    .input-group { position:relative; margin:1.5rem 0; }
+    /* ── Input + suggestions wrapper ── */
+    .input-group {
+      position: relative;
+      margin: 1.5rem 0 0;
+    }
 
     #word-input {
       width:100%;
@@ -148,9 +152,17 @@
       font-size:1.32rem;
       border:2px solid var(--border);
       border-radius:14px;
+      background: white;
     }
 
     #word-input:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(59,130,246,0.15); }
+
+    /* rounded bottom when suggestions are open */
+    #word-input.suggestions-open {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-color: transparent;
+    }
 
     .clear-btn {
       position:absolute;
@@ -167,6 +179,41 @@
       display:none;
       align-items:center;
       justify-content:center;
+      z-index: 10;
+    }
+
+    /* ── Suggestions dropdown ── */
+    #suggestions {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 2px solid var(--accent);
+      border-top: none;
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .suggestion-item {
+      padding: 0.95rem 1.5rem;
+      font-size: 1.18rem;
+      cursor: pointer;
+      color: var(--text);
+      transition: background 0.15s;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .suggestion-item:last-child { border-bottom: none; }
+
+    .suggestion-item:hover,
+    .suggestion-item.active {
+      background: #eff6ff;
+      color: var(--primary);
     }
 
     #level-select {
@@ -175,7 +222,7 @@
       font-size:1.28rem;
       border:2px solid var(--border);
       border-radius:14px;
-      margin-bottom:1.3rem;
+      margin-bottom:0;
     }
 
     #search-btn {
@@ -188,6 +235,7 @@
       font-size:1.32rem;
       font-weight:600;
       cursor:pointer;
+      margin-top: 1.3rem;
     }
 
     #search-btn:hover { background:var(--accent); }
@@ -219,13 +267,24 @@
 
     .example { color:var(--text-secondary); font-style:italic; }
 
+    /* ── Derivation / Origin box ── */
     .origin {
-      background:#eff6ff;
-      border-left:4px solid var(--primary);
-      padding:1.2rem 1.5rem;
-      margin:1.8rem 0;
-      border-radius:10px;
-      font-size:1.06rem;
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 1.2rem 1.5rem;
+      margin: 1.8rem 0;
+      border-radius: 10px;
+      font-size: 1.06rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .origin strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.3px;
     }
 
     .video-container {
@@ -332,7 +391,7 @@
         <h2>Study Tools</h2>
         <div id="dict-section">
           <h3>Built-in Dictionary</h3>
-          <p>Simple lookup: definitions + origin/derivation + audio pronunciation when available.</p>
+          <p>Simple lookup: definitions + derivation/origin + audio pronunciation when available.</p>
 
           <select id="level-select">
             <option value="beginner">Beginner / Elementary Level</option>
@@ -341,8 +400,9 @@
           </select>
 
           <div class="input-group">
-            <input type="text" id="word-input" placeholder="Enter a word (e.g., epistemology)" />
+            <input type="text" id="word-input" placeholder="Enter a word (e.g., epistemology)" autocomplete="off" />
             <button id="clear-btn" class="clear-btn">×</button>
+            <div id="suggestions"></div>
           </div>
 
           <button id="search-btn">Look Up</button>
@@ -357,7 +417,7 @@
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
       <h2>THE BARRIERS TO STUDY</h2>
       <p>Based on article "The Barriers to Study" by L. Ron Hubbard</p>
-      <p>It has been discovered that there are three definite barriers which can block a person’s ability to study and thus his ability to be educated. These barriers actually produce physical and mental reactions.</p>
+      <p>It has been discovered that there are three definite barriers which can block a person's ability to study and thus his ability to be educated. These barriers actually produce physical and mental reactions.</p>
       <p>If one knows and understands what these barriers are and how to handle them, his ability to study and learn will be greatly increased.</p>
       <p>The Barriers to Study form the core basis of The Technology of Study®.</p>
       <div class="video-container">
@@ -395,8 +455,8 @@
 
       <img src="pics/skipped2.png" alt="" class="skipped-image">
 
-      <p>These are two reactions a person can experience when they have missed a step or hit too steep a gradient in the subject they’re studying.</p>
-      <p>This is often referred to as “missed basic skills” or “insufficient basic skills.”</p>
+      <p>These are two reactions a person can experience when they have missed a step or hit too steep a gradient in the subject they're studying.</p>
+      <p>This is often referred to as "missed basic skills" or "insufficient basic skills."</p>
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
     </div>
 
@@ -404,11 +464,11 @@
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
       <h2>The Third Barrier to Study: Misunderstood Word</h2>
       <p>The third and most important barrier is the misunderstood word.</p>
-      <p>“Mis” means not or wrongly. “Misunderstood” means not understood or wrongly understood. A misunderstood word is a word which is not understood or a word which is wrongly understood.</p>
+      <p>"Mis" means not or wrongly. "Misunderstood" means not understood or wrongly understood. A misunderstood word is a word which is not understood or a word which is wrongly understood.</p>
 
       <img src="pics/mu1.png" alt="" class="mu-image">
 
-      <p>It can make you feel blank or washed out. It can make you feel “not there” and a sort of a nervous upset feeling can follow after that.</p>
+      <p>It can make you feel blank or washed out. It can make you feel "not there" and a sort of a nervous upset feeling can follow after that.</p>
 
       <img src="pics/mu2.png" alt="" class="mu-image">
 
@@ -423,12 +483,12 @@
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
       <h2>Why Clear Your Words?</h2>
       <p>Basic Word Clearing is the method of finding a misunderstood word by looking earlier in the text than where you are having trouble.</p>
-      <p>When studying something, it is important to know how to keep yourself moving along and doing well. To be a successful student, you should look up each word you come to that you don’t understand. Never leave a word behind you that you don’t know the meaning of.</p>
+      <p>When studying something, it is important to know how to keep yourself moving along and doing well. To be a successful student, you should look up each word you come to that you don't understand. Never leave a word behind you that you don't know the meaning of.</p>
       <p>But if you ever run into trouble while studying, you would use Basic Word Clearing to help you find and handle the misunderstood word that stopped your successful study progress. Anyone helping you with your studies would use this method and you can also use it to help anyone else.</p>
-      <p>As soon as you slow down or you don’t feel quite as “bright” as you did fifteen minutes ago, that is the time to use Basic Word Clearing and look for the misunderstood word.</p>
-      <p>Don’t wait until you start feeling half asleep or are actually falling asleep while studying something. That is waiting far too long to find and clear the misunderstood word. You went past a word you did not fully understand long before you started to feel sleepy.</p>
+      <p>As soon as you slow down or you don't feel quite as "bright" as you did fifteen minutes ago, that is the time to use Basic Word Clearing and look for the misunderstood word.</p>
+      <p>Don't wait until you start feeling half asleep or are actually falling asleep while studying something. That is waiting far too long to find and clear the misunderstood word. You went past a word you did not fully understand long before you started to feel sleepy.</p>
       <p>If you have ever seen another person falling asleep while reading a book, then you have seen what happens well after the person went blank from passing a misunderstood word.</p>
-      <p>And remember that it is not a group of words or an idea that was misunderstood; it is a misunderstood word. Going past a misunderstood word is always what happens first. It’s what happens before a whole subject is misunderstood.</p>
+      <p>And remember that it is not a group of words or an idea that was misunderstood; it is a misunderstood word. Going past a misunderstood word is always what happens first. It's what happens before a whole subject is misunderstood.</p>
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
     </div>
 
@@ -442,7 +502,7 @@
 
         <li>As soon as this happens, you must stop and look earlier in what you were studying and find the misunderstood word. There will always be one there and you must find it. There are no exceptions. It may be that the misunderstood word is two pages or more before the place where you stopped studying. But it is always earlier in the text than where you are now.</li>
 
-        <li>You find the word. You may recognize it while looking back for it, but if you can’t find it, you or the person helping you with your study can pick out words from what you were reading that could be the misunderstood word. Someone helping you can ask, “What does ______ mean?” to see if you give the correct definition.</li>
+        <li>You find the word. You may recognize it while looking back for it, but if you can't find it, you or the person helping you with your study can pick out words from what you were reading that could be the misunderstood word. Someone helping you can ask, "What does ______ mean?" to see if you give the correct definition.</li>
       </ol>
 
       <h3>How to Clear your word:</h3>
@@ -460,9 +520,9 @@
 
       <h3>Completion:</h3>
       <ol>
-        <li>Now that you have a full understanding of the word, you go back to what you were reading and once again read the part that contained the misunderstood word. If you are still not “bright,” wanting to get on with it and feeling happier about it, then there is another misunderstood word earlier in the text. You must find it and clear it by repeating steps 2 to 5 above.</li>
+        <li>Now that you have a full understanding of the word, you go back to what you were reading and once again read the part that contained the misunderstood word. If you are still not "bright," wanting to get on with it and feeling happier about it, then there is another misunderstood word earlier in the text. You must find it and clear it by repeating steps 2 to 5 above.</li>
 
-        <li>When you feel bright and enthusiastic again, that is the end result of Basic Word Clearing. (The result won’t be achieved if a word you did not understand was missed or if there is an earlier misunderstood word in the text. If this happens, repeat steps 2 to 5.) If you are now enthusiastic, continue studying the text from where the misunderstood was found and cleared.</li>
+        <li>When you feel bright and enthusiastic again, that is the end result of Basic Word Clearing. (The result won't be achieved if a word you did not understand was missed or if there is an earlier misunderstood word in the text. If this happens, repeat steps 2 to 5.) If you are now enthusiastic, continue studying the text from where the misunderstood was found and cleared.</li>
       </ol>
 
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
@@ -487,7 +547,7 @@
 
       <h3>How to do Simple Reading Aloud Word Clearing:</h3>
       <p>Simple Reading Aloud Word Clearing is done following the steps listed below. You and the person who will be reading both have a copy of the same book or text in front of you.</p>
-      <p>When you are working with another person and doing the steps of Simple Reading Aloud Word Clearing on that person, you are called the “word clearer” because you are helping him to find and clear his misunderstood words. The person who is reading the text aloud and receiving Word Clearing is referred to as the “student.”</p>
+      <p>When you are working with another person and doing the steps of Simple Reading Aloud Word Clearing on that person, you are called the "word clearer" because you are helping him to find and clear his misunderstood words. The person who is reading the text aloud and receiving Word Clearing is referred to as the "student."</p>
 
       <h3>PROCEDURE</h3>
       <ol>
@@ -504,19 +564,22 @@
 
       <h3>Completion:</h3>
       <p>By doing Simple Reading Aloud Word Clearing, you can help someone who is moving along slowly while studying and also help the person to improve his ability to read.</p>
-      <p>After doing Simple Reading Aloud Word Clearing, the person’s next step would be to learn how to use a dictionary to look up and clear the meaning of words himself as he goes along.</p>
+      <p>After doing Simple Reading Aloud Word Clearing, the person's next step would be to learn how to use a dictionary to look up and clear the meaning of words himself as he goes along.</p>
 
       <button class="back-btn" onclick="showPage('main')">← Back to Main</button>
     </div>
   </div>
 
   <div class="footer-note">
-    Powered by L. Ron Hubbard’s Study Technology • Designed for focused, high-performance learning
+    Powered by L. Ron Hubbard's Study Technology • Designed for focused, high-performance learning
   </div>
 
   <script>
     let currentWord = '';
+    let suggestionIndex = -1;
+    let suggestDebounce = null;
 
+    // ── Page navigation ──────────────────────────────────────────
     function showPage(pageId) {
       document.querySelectorAll('.page').forEach(el => el.style.display = 'none');
       document.getElementById('main-content').style.display = 'none';
@@ -529,13 +592,120 @@
     }
     showPage('main');
 
+    // ── Suggestions ──────────────────────────────────────────────
+    const wordInput     = document.getElementById('word-input');
+    const clearBtn      = document.getElementById('clear-btn');
+    const suggestionsEl = document.getElementById('suggestions');
+
+    function hideSuggestions() {
+      suggestionsEl.style.display = 'none';
+      suggestionsEl.innerHTML = '';
+      wordInput.classList.remove('suggestions-open');
+      suggestionIndex = -1;
+    }
+
+    function selectSuggestion(word) {
+      wordInput.value = word;
+      clearBtn.style.display = 'flex';
+      hideSuggestions();
+      lookupWord();
+    }
+
+    async function fetchSuggestions(query) {
+      if (query.length < 2) { hideSuggestions(); return; }
+      try {
+        const res = await fetch(`https://api.datamuse.com/sug?s=${encodeURIComponent(query)}&max=6`);
+        if (!res.ok) return;
+        const data = await res.json();
+
+        // Filter to only show suggestions that start with what the user typed
+        const filtered = data.filter(item =>
+          item.word.toLowerCase().startsWith(query.toLowerCase()) && item.word !== query
+        );
+
+        if (filtered.length === 0) { hideSuggestions(); return; }
+
+        suggestionsEl.innerHTML = filtered.map((item, i) =>
+          `<div class="suggestion-item" data-word="${item.word}" data-index="${i}">${item.word}</div>`
+        ).join('');
+
+        suggestionsEl.style.display = 'block';
+        wordInput.classList.add('suggestions-open');
+        suggestionIndex = -1;
+
+        suggestionsEl.querySelectorAll('.suggestion-item').forEach(el => {
+          el.addEventListener('mousedown', e => {
+            e.preventDefault();
+            selectSuggestion(el.dataset.word);
+          });
+        });
+      } catch (_) {
+        hideSuggestions();
+      }
+    }
+
+    wordInput.addEventListener('input', () => {
+      const val = wordInput.value.trim();
+      clearBtn.style.display = val ? 'flex' : 'none';
+      clearTimeout(suggestDebounce);
+      suggestDebounce = setTimeout(() => fetchSuggestions(val), 200);
+    });
+
+    // Keyboard navigation in suggestions
+    wordInput.addEventListener('keydown', e => {
+      const items = suggestionsEl.querySelectorAll('.suggestion-item');
+      if (!items.length) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        suggestionIndex = Math.min(suggestionIndex + 1, items.length - 1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        suggestionIndex = Math.max(suggestionIndex - 1, -1);
+      } else if (e.key === 'Escape') {
+        hideSuggestions(); return;
+      } else if (e.key === 'Enter') {
+        if (suggestionIndex >= 0 && items[suggestionIndex]) {
+          e.preventDefault();
+          selectSuggestion(items[suggestionIndex].dataset.word);
+        } else {
+          hideSuggestions();
+          lookupWord();
+        }
+        return;
+      } else {
+        return;
+      }
+
+      items.forEach((el, i) => el.classList.toggle('active', i === suggestionIndex));
+      if (suggestionIndex >= 0) wordInput.value = items[suggestionIndex].dataset.word;
+    });
+
+    // Hide on click outside
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.input-group')) hideSuggestions();
+    });
+
+    clearBtn.addEventListener('click', () => {
+      wordInput.value = '';
+      clearBtn.style.display = 'none';
+      document.getElementById('result').innerHTML = '';
+      currentWord = '';
+      hideSuggestions();
+      wordInput.focus();
+    });
+
+    // ── Dictionary lookup ─────────────────────────────────────────
     async function lookupWord() {
-      const word = document.getElementById('word-input').value.trim().toLowerCase();
+      const word = wordInput.value.trim().toLowerCase();
       if (!word) return;
       currentWord = word;
+      hideSuggestions();
+
       const resultDiv = document.getElementById('result');
       resultDiv.innerHTML = '<p style="text-align:center; color:#777; padding:2.5rem 0;">Loading...</p>';
       const level = document.getElementById('level-select').value;
+
       try {
         const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
         if (!res.ok) throw new Error('Not found');
@@ -544,6 +714,7 @@
 
         let html = `<h3 class="dict-word">${entry.word}</h3>`;
 
+        // Phonetic + audio
         if (entry.phonetics && entry.phonetics.length > 0) {
           const phoneticWithAudio = entry.phonetics.find(p => p.audio && p.audio.trim() !== '');
           if (phoneticWithAudio) {
@@ -556,15 +727,26 @@
                 </button>
                 <audio id="${audioId}" src="${phoneticWithAudio.audio}"></audio>
               </div>`;
-          } else {
-            html += `<div class="phonetic">${entry.phonetic || ''}</div>`;
+          } else if (entry.phonetic) {
+            html += `<div class="phonetic-wrapper"><span class="phonetic">${entry.phonetic}</span></div>`;
           }
         }
 
-        if (entry.origin && entry.origin.trim()) {
-          html += `<div class="origin"><strong>Origin / Derivation:</strong><br>${entry.origin}</div>`;
+        // ── Derivation / Origin ──────────────────────────────────
+        // Collect origin from the top-level entry AND from individual meanings
+        const origins = new Set();
+        if (entry.origin && entry.origin.trim()) origins.add(entry.origin.trim());
+        if (entry.meanings) {
+          entry.meanings.forEach(m => {
+            if (m.origin && m.origin.trim()) origins.add(m.origin.trim());
+          });
         }
 
+        if (origins.size > 0) {
+          html += `<div class="origin"><strong>📖 Derivation / Origin</strong>${[...origins].join('<br>')}</div>`;
+        }
+
+        // ── Definitions ──────────────────────────────────────────
         entry.meanings.forEach(meaning => {
           const pos = meaning.partOfSpeech.charAt(0).toUpperCase() + meaning.partOfSpeech.slice(1);
           html += `<div class="pos">${pos}</div>`;
@@ -578,7 +760,7 @@
           }
           defs.forEach((def, index) => {
             html += `<p class="def-item">${index + 1}. ${def.definition}`;
-            if (def.example) html += ` <span class="example">Example: ${def.example}</span>`;
+            if (def.example) html += ` <span class="example">— ${def.example}</span>`;
             html += `</p>`;
           });
         });
@@ -590,24 +772,8 @@
     }
 
     document.getElementById('search-btn').addEventListener('click', lookupWord);
-    document.getElementById('word-input').addEventListener('keypress', e => {
-      if (e.key === 'Enter') lookupWord();
-    });
     document.getElementById('level-select').addEventListener('change', () => {
       if (currentWord) lookupWord();
-    });
-
-    const wordInput = document.getElementById('word-input');
-    const clearBtn = document.getElementById('clear-btn');
-    wordInput.addEventListener('input', () => {
-      clearBtn.style.display = wordInput.value.trim() ? 'flex' : 'none';
-    });
-    clearBtn.addEventListener('click', () => {
-      wordInput.value = '';
-      clearBtn.style.display = 'none';
-      document.getElementById('result').innerHTML = '';
-      currentWord = '';
-      wordInput.focus();
     });
 
     if ('serviceWorker' in navigator) {
