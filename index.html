@@ -178,6 +178,19 @@
     }
     .origin strong { display:block; color:var(--primary); font-size:1.05rem; margin-bottom:0.4rem; letter-spacing:0.3px; }
 
+    .source-badge {
+      display:inline-block;
+      font-size:0.78rem;
+      font-weight:600;
+      color:#6b7280;
+      background:#f3f4f6;
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:0.2rem 0.75rem;
+      margin-bottom:1.2rem;
+      letter-spacing:0.3px;
+    }
+
     .video-container { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; margin:2.2rem 0; border-radius:16px; box-shadow:var(--shadow-md); }
     .video-container iframe { position:absolute; top:0; left:0; width:100%; height:100%; }
 
@@ -234,7 +247,6 @@
         <h2>Study Tools</h2>
         <div id="dict-section">
           <h3>Built-in Dictionary</h3>
-          <p>Simple lookup: definitions + derivation/origin + audio pronunciation when available.</p>
 
           <select id="level-select">
             <option value="beginner">Beginner / Elementary Level</option>
@@ -385,15 +397,15 @@
 
   <script>
     // ── State ────────────────────────────────────────────────────
-    let currentWord      = '';   // last successfully looked-up word
-    let suggestionIndex  = -1;
-    let suggestDebounce  = null;
-    let latestQuery      = '';   // tracks most recent input so stale results are discarded
+    let currentWord     = '';
+    let suggestionIndex = -1;
+    let suggestDebounce = null;
+    let latestQuery     = '';
 
-    const wordInput      = document.getElementById('word-input');
-    const clearBtnEl     = document.getElementById('clear-btn');
-    const suggestionsEl  = document.getElementById('suggestions');
-    const resultDiv      = document.getElementById('result');
+    const wordInput     = document.getElementById('word-input');
+    const clearBtnEl    = document.getElementById('clear-btn');
+    const suggestionsEl = document.getElementById('suggestions');
+    const resultDiv     = document.getElementById('result');
 
     // ── Page navigation ──────────────────────────────────────────
     function showPage(pageId) {
@@ -408,7 +420,142 @@
     }
     showPage('main');
 
-    // ── Suggestions helpers ───────────────────────────────────────
+    // ── Strip HTML tags from Wiktionary strings ───────────────────
+    function stripHtml(str) {
+      if (!str) return '';
+      return str.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+    }
+
+    // ── Primary API lookup (dictionaryapi.dev) ───────────────────
+    async function fetchPrimary(word) {
+      const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`);
+      if (!res.ok) return null;
+      const data = await res.json();
+      return data && data.length ? { source: 'primary', data: data[0] } : null;
+    }
+
+    // ── Fallback API lookup (Wiktionary) ─────────────────────────
+    async function fetchWiktionary(word) {
+      const res = await fetch(`https://en.wiktionary.org/api/rest_v1/page/definition/${encodeURIComponent(word)}`);
+      if (!res.ok) return null;
+      const data = await res.json();
+      // We only want English entries
+      const enEntries = data['en'];
+      if (!enEntries || !enEntries.length) return null;
+      return { source: 'wiktionary', data: enEntries };
+    }
+
+    // ── Check if a word exists in either API (for suggestion validation) ──
+    async function existsInAnyDictionary(word) {
+      try {
+        const primaryRes = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`);
+        if (primaryRes.ok) return true;
+      } catch (_) {}
+      try {
+        const wiktRes = await fetch(`https://en.wiktionary.org/api/rest_v1/page/definition/${encodeURIComponent(word)}`);
+        if (wiktRes.ok) {
+          const data = await wiktRes.json();
+          return !!(data['en'] && data['en'].length);
+        }
+      } catch (_) {}
+      return false;
+    }
+
+    // ── Build result HTML from primary API entry ─────────────────
+    function buildPrimaryHtml(entry, level) {
+      let html = `<h3 class="dict-word">${entry.word}</h3>`;
+      html += `<span class="source-badge">Dictionary</span>`;
+
+      // Phonetic + audio
+      if (entry.phonetics && entry.phonetics.length > 0) {
+        const pa = entry.phonetics.find(p => p.audio && p.audio.trim() !== '');
+        if (pa) {
+          const aid = `audio-${entry.word.replace(/\W/g, '')}`;
+          html += `
+            <div class="phonetic-wrapper">
+              <span class="phonetic">${entry.phonetic || pa.text || ''}</span>
+              <button class="audio-btn" onclick="document.getElementById('${aid}').play()">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+              <audio id="${aid}" src="${pa.audio}"></audio>
+            </div>`;
+        } else if (entry.phonetic) {
+          html += `<div class="phonetic-wrapper"><span class="phonetic">${entry.phonetic}</span></div>`;
+        }
+      }
+
+      // Origin / derivation
+      const origins = new Set();
+      if (entry.origin && entry.origin.trim()) origins.add(entry.origin.trim());
+      if (entry.meanings) {
+        entry.meanings.forEach(m => {
+          if (m.origin && m.origin.trim()) origins.add(m.origin.trim());
+        });
+      }
+      if (origins.size > 0) {
+        html += `<div class="origin"><strong>📖 Derivation / Origin</strong>${[...origins].join('<br>')}</div>`;
+      }
+
+      // Definitions
+      if (entry.meanings) {
+        entry.meanings.forEach(meaning => {
+          const pos = meaning.partOfSpeech.charAt(0).toUpperCase() + meaning.partOfSpeech.slice(1);
+          html += `<div class="pos">${pos}</div>`;
+          let defs = meaning.definitions;
+          if (level === 'beginner') {
+            defs = defs.filter(d => d.definition.length <= 60);
+            if (defs.length > 1) defs = defs.slice(0, 1);
+          } else if (level === 'intermediate') {
+            defs = defs.filter(d => d.definition.length <= 120);
+            if (defs.length > 3) defs = defs.slice(0, 3);
+          }
+          defs.forEach((def, i) => {
+            html += `<p class="def-item">${i + 1}. ${def.definition}`;
+            if (def.example) html += ` <span class="example">— ${def.example}</span>`;
+            html += `</p>`;
+          });
+        });
+      }
+      return html;
+    }
+
+    // ── Build result HTML from Wiktionary entries ────────────────
+    function buildWiktionaryHtml(word, entries, level) {
+      let html = `<h3 class="dict-word">${word}</h3>`;
+      html += `<span class="source-badge">Wiktionary</span>`;
+
+      entries.forEach(entry => {
+        const pos = entry.partOfSpeech
+          ? entry.partOfSpeech.charAt(0).toUpperCase() + entry.partOfSpeech.slice(1)
+          : '';
+        if (pos) html += `<div class="pos">${pos}</div>`;
+
+        let defs = (entry.definitions || []).map(d => ({
+          definition: stripHtml(d.definition),
+          example: d.parsedExamples && d.parsedExamples.length
+            ? stripHtml(d.parsedExamples[0].example)
+            : (d.examples && d.examples.length ? stripHtml(d.examples[0]) : '')
+        })).filter(d => d.definition);
+
+        if (level === 'beginner') {
+          defs = defs.filter(d => d.definition.length <= 80).slice(0, 1);
+        } else if (level === 'intermediate') {
+          defs = defs.filter(d => d.definition.length <= 160).slice(0, 3);
+        } else {
+          defs = defs.slice(0, 6);
+        }
+
+        defs.forEach((def, i) => {
+          html += `<p class="def-item">${i + 1}. ${def.definition}`;
+          if (def.example) html += ` <span class="example">— ${def.example}</span>`;
+          html += `</p>`;
+        });
+      });
+
+      return html;
+    }
+
+    // ── Suggestions ───────────────────────────────────────────────
     function hideSuggestions() {
       suggestionsEl.style.display = 'none';
       suggestionsEl.innerHTML = '';
@@ -416,7 +563,6 @@
       suggestionIndex = -1;
     }
 
-    // Select a suggestion: fill input and immediately look it up
     function selectSuggestion(word) {
       wordInput.value = word;
       clearBtnEl.style.display = 'flex';
@@ -424,43 +570,26 @@
       lookupWord();
     }
 
-    // Check a single word against the dictionary API (returns bool)
-    async function existsInDictionary(word) {
-      try {
-        const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`);
-        return res.ok;
-      } catch (_) {
-        return false;
-      }
-    }
-
-    // Fetch Datamuse suggestions, then validate every candidate against the
-    // real dictionary API. Only words that actually exist are shown.
     async function fetchSuggestions(query) {
       if (query.length < 2) { hideSuggestions(); return; }
-
-      // Stamp this request so we can discard it if the user has kept typing
       latestQuery = query;
 
       try {
-        const res = await fetch(`https://api.datamuse.com/sug?s=${encodeURIComponent(query)}&max=10`);
+        const res = await fetch(`https://api.datamuse.com/sug?s=${encodeURIComponent(query)}&max=12`);
         if (!res.ok) { hideSuggestions(); return; }
         const data = await res.json();
 
-        // Only candidates that start with what the user typed and aren't the exact word
         const candidates = data
           .map(item => item.word)
           .filter(w => w.toLowerCase().startsWith(query.toLowerCase()) && w.toLowerCase() !== query.toLowerCase());
 
         if (candidates.length === 0) { hideSuggestions(); return; }
 
-        // Validate all candidates in parallel against the dictionary API
-        const checks = await Promise.all(candidates.map(w => existsInDictionary(w)));
+        // Validate all candidates against both APIs in parallel
+        const checks = await Promise.all(candidates.map(w => existsInAnyDictionary(w)));
         const valid  = candidates.filter((_, i) => checks[i]).slice(0, 6);
 
-        // Discard if the user has already typed something different
         if (latestQuery !== query) return;
-
         if (valid.length === 0) { hideSuggestions(); return; }
 
         suggestionsEl.innerHTML = valid.map((w, i) =>
@@ -473,11 +602,10 @@
 
         suggestionsEl.querySelectorAll('.suggestion-item').forEach(el => {
           el.addEventListener('mousedown', e => {
-            e.preventDefault(); // prevent blur before click fires
+            e.preventDefault();
             selectSuggestion(el.dataset.word);
           });
         });
-
       } catch (_) {
         hideSuggestions();
       }
@@ -487,22 +615,16 @@
     wordInput.addEventListener('input', () => {
       const val = wordInput.value.trim();
       clearBtnEl.style.display = val ? 'flex' : 'none';
-
-      // While the user is still typing, keep the previous result visible —
-      // only clear it once they start a genuinely new word (input is empty)
       if (!val) {
         resultDiv.innerHTML = '';
         currentWord = '';
       }
-
       clearTimeout(suggestDebounce);
       suggestDebounce = setTimeout(() => fetchSuggestions(val), 250);
     });
 
-    // Keyboard navigation inside the suggestion list
     wordInput.addEventListener('keydown', e => {
       const items = suggestionsEl.querySelectorAll('.suggestion-item');
-
       if (e.key === 'ArrowDown') {
         e.preventDefault();
         suggestionIndex = Math.min(suggestionIndex + 1, items.length - 1);
@@ -510,8 +632,7 @@
         e.preventDefault();
         suggestionIndex = Math.max(suggestionIndex - 1, -1);
       } else if (e.key === 'Escape') {
-        hideSuggestions();
-        return;
+        hideSuggestions(); return;
       } else if (e.key === 'Enter') {
         if (suggestionIndex >= 0 && items[suggestionIndex]) {
           e.preventDefault();
@@ -521,15 +642,12 @@
           lookupWord();
         }
         return;
-      } else {
-        return;
-      }
+      } else { return; }
 
       items.forEach((el, i) => el.classList.toggle('active', i === suggestionIndex));
       if (suggestionIndex >= 0) wordInput.value = items[suggestionIndex].dataset.word;
     });
 
-    // Hide dropdown on click outside the input group
     document.addEventListener('click', e => {
       if (!e.target.closest('.input-group')) hideSuggestions();
     });
@@ -548,74 +666,31 @@
     async function lookupWord() {
       const word = wordInput.value.trim().toLowerCase();
       if (!word) return;
-
-      // Don't re-fetch if we already have this word displayed
       if (word === currentWord) return;
 
       currentWord = word;
       hideSuggestions();
-
       resultDiv.innerHTML = '<p style="text-align:center;color:#777;padding:2.5rem 0;">Loading…</p>';
+
       const level = document.getElementById('level-select').value;
 
       try {
-        const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-        if (!res.ok) throw new Error('Not found');
-        const data = await res.json();
-        const entry = data[0];
-
-        let html = `<h3 class="dict-word">${entry.word}</h3>`;
-
-        // Phonetic + audio
-        if (entry.phonetics && entry.phonetics.length > 0) {
-          const pa = entry.phonetics.find(p => p.audio && p.audio.trim() !== '');
-          if (pa) {
-            const aid = `audio-${word.replace(/\W/g, '')}`;
-            html += `
-              <div class="phonetic-wrapper">
-                <span class="phonetic">${entry.phonetic || pa.text || ''}</span>
-                <button class="audio-btn" onclick="document.getElementById('${aid}').play()">
-                  <i class="fa-solid fa-volume-high"></i>
-                </button>
-                <audio id="${aid}" src="${pa.audio}"></audio>
-              </div>`;
-          } else if (entry.phonetic) {
-            html += `<div class="phonetic-wrapper"><span class="phonetic">${entry.phonetic}</span></div>`;
-          }
+        // Try primary API first
+        const primary = await fetchPrimary(word);
+        if (primary) {
+          resultDiv.innerHTML = buildPrimaryHtml(primary.data, level);
+          return;
         }
 
-        // Derivation / Origin
-        const origins = new Set();
-        if (entry.origin && entry.origin.trim()) origins.add(entry.origin.trim());
-        if (entry.meanings) {
-          entry.meanings.forEach(m => {
-            if (m.origin && m.origin.trim()) origins.add(m.origin.trim());
-          });
-        }
-        if (origins.size > 0) {
-          html += `<div class="origin"><strong>📖 Derivation / Origin</strong>${[...origins].join('<br>')}</div>`;
+        // Fall back to Wiktionary
+        const wikt = await fetchWiktionary(word);
+        if (wikt) {
+          resultDiv.innerHTML = buildWiktionaryHtml(word, wikt.data, level);
+          return;
         }
 
-        // Definitions
-        entry.meanings.forEach(meaning => {
-          const pos = meaning.partOfSpeech.charAt(0).toUpperCase() + meaning.partOfSpeech.slice(1);
-          html += `<div class="pos">${pos}</div>`;
-          let defs = meaning.definitions;
-          if (level === 'beginner') {
-            defs = defs.filter(d => d.definition.length <= 60);
-            if (defs.length > 1) defs = defs.slice(0, 1);
-          } else if (level === 'intermediate') {
-            defs = defs.filter(d => d.definition.length <= 120);
-            if (defs.length > 3) defs = defs.slice(0, 3);
-          }
-          defs.forEach((def, i) => {
-            html += `<p class="def-item">${i + 1}. ${def.definition}`;
-            if (def.example) html += ` <span class="example">— ${def.example}</span>`;
-            html += `</p>`;
-          });
-        });
-
-        resultDiv.innerHTML = html;
+        // Both failed
+        resultDiv.innerHTML = '<p style="color:var(--primary);text-align:center;padding:2.5rem 0;font-size:1.15rem;">Word not found or offline.<br>Please check spelling and try again.</p>';
 
       } catch (_) {
         resultDiv.innerHTML = '<p style="color:var(--primary);text-align:center;padding:2.5rem 0;font-size:1.15rem;">Word not found or offline.<br>Please check spelling and try again.</p>';
@@ -625,7 +700,7 @@
     document.getElementById('search-btn').addEventListener('click', lookupWord);
     document.getElementById('level-select').addEventListener('change', () => {
       if (currentWord) {
-        currentWord = ''; // force re-fetch at new level
+        currentWord = '';
         lookupWord();
       }
     });
